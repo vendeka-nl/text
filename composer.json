@@ -1,0 +1,8 @@
+{
+    "name": "vendeka-nl/text",
+    "autoload": {
+        "psr-0" : {
+            "Vendeka\\Text" : "src"
+        }
+    }
+}
