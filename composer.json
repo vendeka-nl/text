@@ -1,8 +1,12 @@
 {
     "name": "vendeka-nl/text",
+	"description": "String helper class and functions.",
     "autoload": {
         "psr-0" : {
             "Vendeka\\Text" : "src"
         }
+    },
+    "require": {
+        "php": ">=5.3.0"
     }
 }
