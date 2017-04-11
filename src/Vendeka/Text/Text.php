@@ -17,7 +17,7 @@ class Text
 	public static function toWords ($input, $uppercase = self::UPPERCASE_FIRST)
 	{
 		$output = preg_replace('/([A-Z])/', ' $1', $input);
-		$output = str_replace(['_', '-'], ' ', $output);
+		$output = str_replace(array('_', '-'), ' ', $output);
 		$output = preg_replace('/\s+/', ' ', $output);
 
 		if ($uppercase === self::UPPERCASE_FIRST)
