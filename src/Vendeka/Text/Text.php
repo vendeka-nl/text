@@ -5,10 +5,9 @@ class Text
 {
 	const UPPERCASE_FIRST = 'first';
 	const UPPERCASE_WORDS = 'words';
-	const LOWERCASE = false;
 
 	/**
-	 * Convert a snake_case, camelCase or StudlyCase to string of words. For example 'aSnake' becomes 'A snake'.
+	 * Convert a snake_case, kebab-case, camelCase or StudlyCase to string of words. For example 'aSnake' becomes 'A snake'.
 	 * 
 	 * @param string $input 
 	 * @param string|boolean $uppercase Which uppercasing method should be used? If set to false output is lowercase.
@@ -28,11 +27,89 @@ class Text
 		{
 			$output = ucwords($output);			
 		}
-		elseif ($uppercase === self::LOWERCASE)
+		elseif ($uppercase === true)
+		{
+			$output = strtoupper($output);
+		}
+		elseif ($uppercase === false)
 		{
 			$output = strtolower($output);
 		}
 
 		return $output;
 	}
+
+    /**
+     * Lead a string with a single instance of a given value.
+     *
+     * @param  string  $value
+     * @param  string  $lead
+     * @return string
+     */
+    public static function start($value, $lead)
+	{
+		if (!self::startsWith($value, $lead)) 
+		{
+			return $lead . $value;
+		}
+		
+		return $value;
+	}
+
+    /**
+     * Cap a string with a single instance of a given value.
+     *
+     * @param  string  $value
+     * @param  string  $cap
+     * @return string
+     */
+    public static function finish($value, $cap)
+	{
+		if (!self::endsWith($value, $cap)) 
+		{
+			$value .= $cap;
+		}
+		
+		return $value;
+	}
+
+    /**
+     * Determine if a given string ends with a given substring.
+     *
+     * @param  string  $haystack
+     * @param  string|array  $needles
+     * @return bool
+     */
+    public static function endsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle)
+		{
+            if (substr($haystack, -strlen($needle)) === (string) $needle)
+			{
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine if a given string starts with a given substring.
+     *
+     * @param  string  $haystack
+     * @param  string|array  $needles
+     * @return bool
+     */
+    public static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) 
+		{
+            if ($needle != '' && substr($haystack, 0, strlen($needle)) === (string) $needle)
+			{
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
