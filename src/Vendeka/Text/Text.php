@@ -74,7 +74,7 @@ class Text
 	}
 
 	/**
-	 * Wrap a text with a prefix and a (different) suffix.
+	 * Wrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
 	 * 
 	 * @param string $text
 	 * @param string $before

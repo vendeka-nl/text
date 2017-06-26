@@ -81,7 +81,7 @@ Text::toWords('aCow', null); //=> 'a Cow'
 
 ### `wrap(string $text, string $before, string $after = null): string`
 
-Wrap a text with a prefix and a (different) suffix.
+Wrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
 
 ```php
 Text::wrap('directory', '/'); //=> '/directory/'
