@@ -82,4 +82,15 @@ class TextTest extends TestCase
 		$this->assertEquals(Text::finish('path', '/'), 'path/');
 		$this->assertEquals(Text::finish('path/', '/'), 'path/');
 	}
+	
+	public function testWrapMethod ()
+	{
+		$this->assertEquals(Text::wrap('path', '/'), '/path/');
+		$this->assertEquals(Text::wrap('path/', '/'), '/path/');
+		$this->assertEquals(Text::wrap('/path', '/'), '/path/');
+		$this->assertEquals(Text::wrap('/path/', '/'), '/path/');
+		$this->assertEquals(Text::wrap('path', '/x/', '/y/'), '/x/path/y/');
+		$this->assertEquals(Text::wrap('/x/path', '/x/', '/y/'), '/x/path/y/');
+		$this->assertEquals(Text::wrap('path/y/', '/x/', '/y/'), '/x/path/y/');		
+	}
 }

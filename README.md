@@ -2,7 +2,7 @@
 
 This package provides a couple useful string helper methods.
 
-The package is developed by [Vendeka](https://www.vendeka.nl/), a company from the Netherlands.
+The package is developed and maintained by [Vendeka](https://www.vendeka.nl/), a company from the Netherlands.
 
 # Installation
 
@@ -17,7 +17,9 @@ composer require vendeka-nl/text
 ```php
 // Fully qualified name
 Vendeka\Text\Text::toWords($x);
+```
 
+```php
 // Using alias (use)
 namespace YourNamespace;
 
@@ -75,6 +77,17 @@ Text::toWords('a_snake', Text::UPPERCASE_WORDS); //=> 'A Snake'
 Text::toWords('a-lamb', true); //=> 'A LAMB'
 Text::toWords('aCamel', false); //=> 'a camel'
 Text::toWords('aCow', null); //=> 'a Cow'
+```
+
+### `wrap(string $text, string $before, string $after = null): string`
+
+Wrap a text with a prefix and a (different) suffix.
+
+```php
+Text::wrap('directory', '/'); //=> '/directory/'
+Text::wrap('directory/', '/'); //=> '/directory/'
+Text::wrap('Paragraph', '<p>', '</p>'); //=> '<p>Paragraph</p>'
+Text::wrap('<p>Paragraph</p>', '<p>', '</p>'); //=> '<p>Paragraph</p>'
 ```
 
 # Testing

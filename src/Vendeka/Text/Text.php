@@ -73,6 +73,19 @@ class Text
 		return $value;
 	}
 
+	/**
+	 * Wrap a text with a prefix and a (different) suffix.
+	 * 
+	 * @param string $text
+	 * @param string $before
+	 * @param string $after
+	 * @return string
+	 */
+	public static function wrap($text, $before, $after = null)
+	{
+		return self::finish(self::start($text, $before), empty($after) ? $before : $after);
+	}
+
     /**
      * Determine if a given string ends with a given substring.
      *
