@@ -41,7 +41,7 @@ class TextTest extends TestCase
 		$this->assertEquals(Text::toWords('aCamel', false), 'a camel');
 	}
 
-	public function testToWordsMethoLeaveCaseUntouched ()
+	public function testToWordsMethodLeaveCaseUntouched ()
 	{	
 		$this->assertEquals(Text::toWords('a dog', null), 'a dog');
 		$this->assertEquals(Text::toWords('a_snake', null), 'a snake');
