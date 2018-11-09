@@ -35,10 +35,10 @@ class Text
 	{
 		if (!self::startsWith($text, $lead))
 		{
-			return $lead . $value;
+			return $lead . $text;
 		}
 
-		return $value;
+		return $text;
 	}
 
     /**
