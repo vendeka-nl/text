@@ -10,7 +10,7 @@ class Text
 	 * Convert a snake_case, kebab-case, camelCase or StudlyCase to string of words. For example 'aSnake' becomes 'A snake'.
 	 *
 	 * @param string $text
-	 * @param string|bool $uppercase See the `changeCase()` method for an explanation of this parameter. Use `null` for the is used to leave the capitalization as-is.\
+	 * @param string|bool $uppercase See the `changeCase()` method for an explanation of this parameter. Use `null` for the is used to leave the capitalization as-is.
 	 * @param bool $lowercase_rest Change the case of the remaining characters to lowercase?
 	 * @return string String with words
 	 */
@@ -52,10 +52,10 @@ class Text
 	{
 		if (!self::endsWith($text, $cap))
 		{
-			$value .= $cap;
+			$text .= $cap;
 		}
 
-		return $value;
+		return $text;
 	}
 
 	/**
