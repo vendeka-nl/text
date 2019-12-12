@@ -45,7 +45,7 @@ echo $fluid; // => 'Text.'
 
 ## Usage with Laravel
 
-Register an alias for `Text` in config/app.php:
+Register an alias for `Text` in `config/app.php`:
 ```php
 'Text' => Vendeka\Text\Text::class,
 ```
@@ -87,13 +87,17 @@ Text::endsWith('alpha', 'a') //=> true
 Cap a string with a single instance of a given value.
 
 ```php
-Text::start('path', '/') //=> 'path/'
-Text::start('path/', '/') //=> 'path/'
+Text::finish('path', '/') //=> 'path/'
+Text::finish('path/', '/') //=> 'path/'
 ```
 
 ### `firstToUpperCase (string $text): string`
 
 Make a string's first character uppercase.
+
+```php
+Text::firstToUpperCase ('john') //=> 'John'
+```
 
 ### `start (string $text, string $lead): string`
 
@@ -159,7 +163,7 @@ Text::unprefix('#yolo', '#') //=> 'yolo'
 Remove a suffix if it is present.
 
 ```php
-Text::unprefix('/var/www/', '/') //=> '/var/www'
+Text::unsuffix('/var/www/', '/') //=> '/var/www'
 ```
 
 ### `unwrap (string $text, string $before, string $after = null): string`
