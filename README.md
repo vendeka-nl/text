@@ -1,5 +1,7 @@
 # Text helpers
 
+![Packagist Version](https://img.shields.io/packagist/v/vendeka-nl/text)
+
 This package provides a couple useful string helper methods. It is especially useful for handling prefixes in paths and converting between different string naming conventions.
 
 The package is developed and maintained by [Vendeka](https://www.vendeka.nl/), a company from the Netherlands.
