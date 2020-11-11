@@ -1,7 +1,6 @@
 {
     "name": "vendeka-nl/text",
 	"description": "String helper class and functions.",
-	"version": "2.0.0",
     "autoload": {
         "psr-4" : {
             "Vendeka\\Text\\" : "src/"
