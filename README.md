@@ -2,7 +2,7 @@
 
 ![Packagist Version](https://img.shields.io/packagist/v/vendeka-nl/text)
 
-This package provides a couple useful string helper methods. It is especially useful for handling prefixes in paths and converting between different string naming conventions.
+This package adds a few useful string helper methods to [`Illuminate\Support\Str`](https://laravel.com/docs/master/helpers#strings).
 
 The package is developed and maintained by [Vendeka](https://www.vendeka.nl/), a company from the Netherlands.
 
@@ -10,182 +10,139 @@ The package is developed and maintained by [Vendeka](https://www.vendeka.nl/), a
 
 Install using composer:
 
-```
+```shell
 composer require vendeka-nl/text
 ```
 
-# Usage
+If you are using Laravel this package automatically adds its macros to `Illuminate\Support\Str`.
+
+
+## Without Laravel
+
+If you are not using Laravel, you need to boot the package manually. This is only required to be excuted once, so put it somewhere at the start of your app.
 
 ```php
-// Fully qualified name
-Vendeka\Text\Text::toWords($x);
-```
-
-```php
-// Using alias (use)
-namespace YourNamespace;
-
 use Vendeka\Text\Text;
 
-class YourClass
-{
-  public function yourMethod ($x)
-  {
-    return Text::toWords($x);
-  }
-}
+Text::boot();
 ```
 
-## Fluent API
-The package also provides a class for chainable calls.
+
+## Upgrading from v1.x
+
+Version 2.x requires PHP 7.4 or higher.
+
+Next, update the package version of `vendeka-nl/text` to "^2" in your composer.json and run `composer update vendeka-nl/text` to update the package.
+
+After updating the package, change your calls using the table below. 
+Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str`.
+
+| v1 | v2 |
+|----|----|
+| `Vendeka\Text\Fluid` | `Illuminate\Support\Str::of()`
+| `Vendeka\Text\Text::changeCase()` | `Illuminate\Support\Str::lower()`<br>`Illuminate\Support\Str::upper()`<br>`Illuminate\Support\Str::ucfirst()` <br>`Illuminate\Support\Str::title()` |
+| `Vendeka\Text\Text::firstToUpperCase()` | `Illuminate\Support\Str::ucfirst()` |
+| `Vendeka\Text\Text::startsWith()` | `Illuminate\Support\Str::startsWith()` |
+| `Vendeka\Text\Text::toLowerCase()` | `Illuminate\Support\Str::lower()` |
+| `Vendeka\Text\Text::toTitleCase()` | `Illuminate\Support\Str::title()` |
+| `Vendeka\Text\Text::toUpperCase()` | `Illuminate\Support\Str::upper()` |
+
+
+# Usage
+
+This package adds the following methods to `Illuminate\Support\Str`:
+
+- [`normalizeWhitespace`](#normalizeWhitespace)
+- [`toWords`](#toWords)
+- [`unprefix`](#unprefix)
+- [`unsuffix`](#unsuffix)
+- [`unwrap`](#unwrap)
+- [`wrap`](#wrap)
+
+All methods are chainable using `Illuminate\Support\Str::of()`.
+
+Check the [Laravel documentation](https://laravel.com/docs/helpers#method-str-after) to see the available methods on `Illuminate\Support\Str`.
 
 ```php
-$fluid = new Fluid('My text.');
-$fluid->unprefix('My')->firstToUpperCase();
-echo $fluid; // => 'Text.'
+use Illuminate\Support\Str;
+
+Str::of('taco')->wrap('[', ']')->upper();   //=> '[TACO]'
+Str::unwrap('/gift/', '/');                 //=> 'gift'
 ```
 
-## Usage with Laravel
+Most methods return an instance of the class. To convert to a string, either typecast to a `string` (`echo` will do this automatically) or call the `toString()` method.
 
-Register an alias for `Text` in `config/app.php`:
-```php
-'Text' => Vendeka\Text\Text::class,
-```
 
-## Methods
+## Available methods
 
-### `changeCase (string $text, string|bool $case): string`
+### normalizeWhitespace
 
-Change a string's case to lower case, upper case, title case or just the first character to uppercase.
-
-Possible values for the second parameter:
-* `Text::UPPERCASE_FIRST` capitalizes the first character of the string.
-* `Text::UPPERCASE_WORDS` capitalizes the first character of each word.
-* `Text::TITLE_CASE` capitalizes the first character of each word and convert all other characters to lowercase.
-* `true`  converts the whole string to uppercase.
-* `false` converts the whole string to lowercase.
-* `null` is used to leave the capitalization as-is.
+Removes duplicate whitespace characters and trims.
 
 ```php
-Text::changeCase('a dog'); //=> 'A dog'
-Text::changeCase('a cat', Text::UPPERCASE_FIRST); //=> 'A cat'
-Text::changeCase('a sNaKe', Text::UPPERCASE_WORDS); //=> 'A SNaKe'
-Text::changeCase('ThE wOLf', Text::TITLE_CASE); //=> 'The Wolf'
-Text::changeCase('a lamb', true); //=> 'A LAMB'
-Text::changeCase('A Camel', false); //=> 'a camel'
-Text::changeCase('a Cow', null); //=> 'a Cow'
+Str::normalizeWhitespace(" White\r\n  space "); //=> 'White space'
 ```
 
-### `endsWith (string $text, string|array $needles): bool`
 
-Determine if a given string ends with a given substring.
+### toWords
+
+Convert a snake_case, kebab-case, camelCase or StudlyCase to a string of words. For example 'aSnake' becomes 'A snake'.
+
+Please note that this method does not return a string, but an instance of `Vendeka\Text\Words`. The `Words` class extends `Illuminate\Support\Collection` and adds the following useful methods:
+
+* `of()` returns a new instance of `Illuminate\Support\Stringable` to continue the method chain
+* `toArray()` returns the words as a array of strings
+* `toString()` returns the words as a string glued together with a single space between words (casting to a string is also supported)
+
 
 ```php
-Text::endsWith('alpha', 'a') //=> true
+use Illuminate\Support\Str;
+
+(string) Str::toWords('a-dog'); //=> 'a dog'
+Str::of('aSnake')->toWords()->of()->lower(); //=> 'a snake'
+(string) (new Words(['From', 'an', 'array'])); //=> 'From an array'
 ```
 
-### `finish (string $text, string $cap): string`
 
-Cap a string with a single instance of a given value.
-
-```php
-Text::finish('path', '/') //=> 'path/'
-Text::finish('path/', '/') //=> 'path/'
-```
-
-### `firstToUpperCase (string $text): string`
-
-Make a string's first character uppercase.
-
-```php
-Text::firstToUpperCase ('john') //=> 'John'
-```
-
-### `start (string $text, string $lead): string`
-
-Lead a string with a single instance of a given value.
-
-```php
-Text::start('path', '/') //=> '/path'
-Text::start('/path', '/') //=> '/path'
-```
-
-### `startsWith (string $text, string|array $needles): bool`
-
-Determine if a given string starts with a given substring.
-
-```php
-Text::startsWith('alpha', 'a') //=> true
-```
-
-### `toLowerCase (string $text): string`
-
-Make a string lowercase.
-
-```php
-Text::toLowerCase('Quiet') //=> 'quiet'
-```
-
-### `toTitleCase (string $text, bool $lowercase_rest = true): string`
-
-Uppercase the first character of each word in a string.
-
-```php
-Text::toTitleCase('My BOOK') //=> 'My Book'
-Text::toTitleCase('My BOOK', false) //=> 'My BOOK'
-```
-
-### `toUpperCase (string $text): string`
-Make a string uppercase.
-
-```php
-Text::toUpperCase('yelling!') //=> 'YELLING!'
-```
-
-### `toWords (string $text, string|bool $uppercase = Text::UPPERCASE_FIRST, bool $lowercase_rest = true): string`
-
-Convert a snake_case, kebab-case, camelCase or StudlyCase to string of words. For example 'aSnake' becomes 'A snake'. 
-
-See the `changeCase()` method for an explanation of the second parameter. Use `null` for the is used to leave the capitalization as-is. 
-
-```php
-Text::toWords('a-dog'); //=> 'A dog'
-```
-
-### `unprefix (string $text, string $lead): string`
+### unprefix
 
 Remove a prefix if it is present.
 
 ```php
-Text::unprefix('#yolo', '#') //=> 'yolo'
+use Illuminate\Support\Str;
+
+Str::unprefix('#yolo', '#') //=> 'yolo'
 ```
 
-### `unsuffix (string $text, string $cap): string`
+
+### unsuffix
 
 Remove a suffix if it is present.
 
 ```php
-Text::unsuffix('/var/www/', '/') //=> '/var/www'
+Str::unsuffix('/var/www/', '/') //=> '/var/www'
 ```
 
-### `unwrap (string $text, string $before, string $after = null): string`
+
+### unwrap
 
 Unwrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
 
 ```php
-Text::unwrap('<p>Gift</p>', '<p>', '</p>'); //=> 'Gift'
-Text::unwrap('/present/', '/') //=> 'present'
+Str::unwrap('<p>Gift</p>', '<p>', '</p>'); //=> 'Gift'
+Str::unwrap('/present/', '/') //=> 'present'
 ```
 
-### `wrap (string $text, string $before, string $after = null): string`
+
+### wrap
 
 Wrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
 
 ```php
-Text::wrap('directory', '/'); //=> '/directory/'
-Text::wrap('directory/', '/'); //=> '/directory/'
-Text::wrap('Paragraph', '<p>', '</p>'); //=> '<p>Paragraph</p>'
-Text::wrap('<p>Paragraph</p>', '<p>', '</p>'); //=> '<p>Paragraph</p>'
+Str::wrap('directory', '/'); //=> '/directory/'
+Str::wrap('directory/', '/'); //=> '/directory/'
+Str::wrap('Paragraph', '<p>', '</p>'); //=> '<p>Paragraph</p>'
+Str::wrap('<p>Paragraph</p>', '<p>', '</p>'); //=> '<p>Paragraph</p>'
 ```
 
 # Testing
