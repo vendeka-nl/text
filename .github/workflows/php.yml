@@ -34,6 +34,6 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: PHPUnit tests
-      uses: php-actions/phpunit@v8
+      uses: php-actions/phpunit@v9
       with:
         configuration: phpunit.xml
