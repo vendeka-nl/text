@@ -17,5 +17,5 @@ jobs:
         uses: php-actions/phpunit@v1
         with:
           bootstrap: vendor/autoload.php
-          configuration: test/phpunit.xml
+          configuration: phpunit.xml
           args: --coverage-text
