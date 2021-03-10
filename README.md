@@ -19,7 +19,7 @@ If you are using Laravel this package automatically adds its macros to `Illumina
 
 ## Without Laravel
 
-If you are not using Laravel, you need to boot the package manually. This is only required to be excuted once, so put it somewhere at the start of your app.
+If you are not using Laravel, you need to boot the package manually. This is only required to be executed once, so put it somewhere at the start of your app.
 
 ```php
 use Vendeka\Text\Text;
@@ -96,7 +96,7 @@ Please note that this method does not return a string, but an instance of `Vende
 
 
 ```php
-use Illuminate\Support\Str;
+use Vendeka\Text\Words;
 
 (string) Str::toWords('a-dog'); //=> 'a dog'
 Str::of('aSnake')->toWords()->of()->lower(); //=> 'a snake'
@@ -109,8 +109,6 @@ Str::of('aSnake')->toWords()->of()->lower(); //=> 'a snake'
 Remove a prefix if it is present.
 
 ```php
-use Illuminate\Support\Str;
-
 Str::unprefix('#yolo', '#') //=> 'yolo'
 ```
 
