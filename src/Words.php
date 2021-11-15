@@ -1,4 +1,5 @@
 <?php
+
 namespace Vendeka\Text;
 
 use Illuminate\Support\Stringable;
@@ -13,7 +14,7 @@ class Words extends Collection
     {
         if (is_string($text))
         {
-            $text = preg_replace('/([A-Z])/', ' $1', $text);
+            $text = preg_replace('/((?:[A-Z]\.?)+)/', ' $1', $text);
             $text = str_replace(['_', '-'], ' ', $text);
             $text = self::purgeWhitespace($text);
             $text = explode(' ', $text);
@@ -27,18 +28,13 @@ class Words extends Collection
         return new Stringable($this->toString());
     }
 
-    public function toArray(): array
+    public function toString(string $glue = ' '): string
     {
-        return $this->items;
-    }
-
-    public function toString(): string
-    {
-        return $this->__toString();
+        return $this->join($glue);
     }
 
     public function __toString(): string
     {
-        return $this->join(' ');
+        return $this->toString();
     }
 }
