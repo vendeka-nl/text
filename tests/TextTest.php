@@ -1,23 +1,18 @@
 <?php
+
 namespace Vendeka\Text\Tests;
 
 use Vendeka\Text\Text;
 use Vendeka\Text\Words;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use PHPUnit\Framework\TestCase;
 
-class TextTest extends TestCase
+class TextTest extends Test
 {
-	protected function setUp(): void
+    public function testNormalizeWhitespaceMethod(): void
     {
-		Text::boot();
-	}
-
-	public function testNormalizeWhitespaceMethod (): void
-	{
-		$this->assertIsString(Str::normalizeWhitespace('Instance'));
-		$this->assertInstanceOf(Stringable::class, Str::of('Instance')->normalizeWhitespace());
+        $this->assertIsString(Str::normalizeWhitespace('Instance'));
+        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->normalizeWhitespace());
 
 		$this->assertEquals('White space', Str::normalizeWhitespace(" White\r\n space  "));
 		$this->assertEquals('White space', Str::of("White  space\t")->normalizeWhitespace());
