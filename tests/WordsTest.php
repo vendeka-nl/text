@@ -14,8 +14,8 @@ class WordsTest extends Test
         $this->assertInstanceOf(Collection::class, new Words([]));
     }
 
-	public function testToStringMethodReturnsString(): void
-	{
+    public function testToStringMethodReturnsString(): void
+    {
         // Default (space)
         $words = new Words('Same');
 
@@ -26,7 +26,7 @@ class WordsTest extends Test
         // Custom glue
         $multi = new Words('multiple-words');
         $this->assertEquals('multiple/words', $multi->toString('/'));
-	}
+    }
 
     public function testToStringMethodHandlesAcronymsCorrectly(): void
     {
@@ -43,14 +43,14 @@ class WordsTest extends Test
         $this->assertEquals('html-for-noobs', $acronyms->of()->slug());
     }
 
-	public function testOfMethodReturnsStringableInstance(): void
-	{
+    public function testOfMethodReturnsStringableInstance(): void
+    {
         $this->assertInstanceOf(Stringable::class, (new Words('Stringable'))->of());
     }
-    
-	public function testToArrayMethodReturnsArray(): void
-	{
+
+    public function testToArrayMethodReturnsArray(): void
+    {
         $this->assertIsArray((new Words(''))->toArray());
         $this->assertIsArray((new Words([]))->toArray());
-	}
+    }
 }
