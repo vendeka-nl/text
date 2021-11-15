@@ -14,6 +14,8 @@ Install using composer:
 composer require vendeka-nl/text
 ```
 
+## With Laravel
+
 If you are using Laravel this package automatically adds its macros to `Illuminate\Support\Str`.
 
 
@@ -88,11 +90,8 @@ Str::normalizeWhitespace(" White\r\n  space "); //=> 'White space'
 
 Convert a snake_case, kebab-case, camelCase or StudlyCase to a string of words. For example 'aSnake' becomes 'A snake'.
 
-Please note that this method does not return a string, but an instance of `Vendeka\Text\Words`. The `Words` class extends `Illuminate\Support\Collection` and adds the following useful methods:
+Please note that this method does not return a string, but an instance of [`Vendeka\Text\Words`](#words).
 
-* `of()` returns a new instance of `Illuminate\Support\Stringable` to continue the method chain
-* `toArray()` returns the words as a array of strings
-* `toString()` returns the words as a string glued together with a single space between words (casting to a string is also supported)
 
 
 ```php
@@ -142,6 +141,39 @@ Str::wrap('directory/', '/'); //=> '/directory/'
 Str::wrap('Paragraph', '<p>', '</p>'); //=> '<p>Paragraph</p>'
 Str::wrap('<p>Paragraph</p>', '<p>', '</p>'); //=> '<p>Paragraph</p>'
 ```
+
+
+## Available classes
+
+
+### Words 
+
+The class `Vendeka\Text\Words` extends `Illuminate\Support\Collection`. The class can be initialized via its constructor or the `Illuminate\Support\Str::toWords()` method.
+
+
+```php
+$words = new Words("First Second");
+$words = new Words(['First', 'Second']);
+$words = Str::toWords("First Second");
+```
+
+It adds the following useful methods:
+
+
+#### of
+
+`of()` returns a new instance of `Illuminate\Support\Stringable` to continue the method chain.
+
+
+#### toString
+
+`toString()` returns the words as a string glued together with a single space (or custom string) between words (casting to a string is also supported).
+
+```php
+Str::toWords('my-slug')->toString(); // => 'my slug'
+Str::toWords('my-folder')->toString('/'); // => 'my/slug'
+```
+
 
 # Testing
 
