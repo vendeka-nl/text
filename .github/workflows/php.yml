@@ -24,6 +24,7 @@ jobs:
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v1
         with:
+          php_version: ${{ matrix.php-versions }}
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           args: --coverage-text
