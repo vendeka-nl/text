@@ -8,7 +8,15 @@ on:
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest]
+        php: ['7.4', '8.0', '8.1']
+
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+
+    runs-on: ${{ matrix.operating-system }}
 
     steps:
       - uses: actions/checkout@v2
@@ -19,3 +27,5 @@ jobs:
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           args: --coverage-text
+      - name: Check PHP Version
+        run: php -v
