@@ -4,6 +4,9 @@
     <include>
       <directory suffix=".php">src/</directory>
     </include>
+    <report>
+      <text outputFile="./phpunit.coverage.txt" showUncoveredFiles="false" showOnlySummary="false"/>
+    </report>
   </coverage>
   <testsuites>
     <testsuite name="Test Suite">
