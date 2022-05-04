@@ -3,6 +3,7 @@
 namespace Vendeka\Text;
 
 use Illuminate\Support\Collection;
+use Stringable;
 use Vendeka\Text\Traits\IsStringable;
 use Vendeka\Text\Traits\NormalizesWhitespace;
 
@@ -16,7 +17,7 @@ class Words extends Collection
      */
     public function __construct(mixed $text)
     {
-        if (is_string($text))
+        if ($this->getStringable($text))
         {
             $text = preg_replace('/((?:[A-Z]\.?)+)/', ' $1', $text);
             $text = str_replace(['_', '-'], ' ', $text);
@@ -48,5 +49,30 @@ class Words extends Collection
     public function __toString(): string
     {
         return $this->toString();
+    }
+
+    /**
+     * Convert a stringable to a string and check if it is a stringable.
+     * A stringable is a string, an instance of `\Stringable` or an object that implements a `toString()` method.
+     * 
+     * @param mixed $subject
+     * 
+     * @return bool
+     */
+    private function getStringable(mixed &$subject): bool
+    {
+        if (is_string($subject) || $subject instanceof Stringable)
+        {
+            return true;
+        }
+
+        if (is_object($subject) && method_exists($subject, 'toString'))
+        {
+            $subject = $subject->toString();
+
+            return true;
+        }
+
+        return false;
     }
 }

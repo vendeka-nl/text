@@ -4,6 +4,8 @@ namespace Vendeka\Text\Tests;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
+use Vendeka\Text\Tests\Helpers\CustomStringable;
+use Vendeka\Text\Tests\Helpers\ImplicitStringable;
 use Vendeka\Text\Words;
 
 class WordsTest extends Test
@@ -12,6 +14,8 @@ class WordsTest extends Test
     {
         $this->assertInstanceOf(Collection::class, new Words(''));
         $this->assertInstanceOf(Collection::class, new Words([]));
+        $this->assertInstanceOf(Collection::class, new Words(new ImplicitStringable('magic')));
+        $this->assertInstanceOf(Collection::class, new Words(new CustomStringable('custom')));
     }
 
     public function testToStringMethodReturnsString(): void
