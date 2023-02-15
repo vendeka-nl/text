@@ -37,6 +37,26 @@ class Text
     }
 
     /**
+     * Enclose a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
+     * 
+     * @param string $text
+     * @param string|iterable $before
+     * @param string|iterable $after
+     * @return string
+     */
+    public static function enclose(string $text, string|iterable $before, string|iterable $after = null): string
+    {
+        $after = (array) ($after ?? $before);
+
+        foreach ((array) $before as $i => $lead)
+        {
+            $text = Str::finish(Str::start($text, $lead), $after[$i]);
+        }
+
+        return $text;
+    }
+
+    /**
      * Create an exclamation from a string.
      * This method automatically uppercases the first letter and adds a question mark if none if there is no period or exclamation mark at the end of it.
      * 
@@ -254,20 +274,16 @@ class Text
     /**
      * Wrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
      *
+     * @deprecated 3.0.2 No longer to be used in Laravel v9.31 or above, because `Str::wrap()` overrides this method. Use `Str::enclose()` instead.
+     * @see Vendeka\Text\Text::enclose()
+     * 
      * @param string|iterable $before
      * @param string|iterable $after
      * @return string
      */
     public static function wrap(string $text, string|iterable $before, string|iterable $after = null): string
     {
-        $after = (array) ($after ?? $before);
-
-        foreach ((array) $before as $i => $lead)
-        {
-            $text = Str::finish(Str::start($text, $lead), $after[$i]);
-        }
-
-        return $text;
+        return self::enclose($text, $before, $after);
     }
 
     /**
@@ -279,6 +295,7 @@ class Text
      */
     private static function bootStrMacros(): void
     {
+        Str::macro('enclose', fn (string $text, $before, $after = null): string => Text::enclose($text, $before, $after));
         Str::macro('exclamation', fn (string $text): string => Text::exclamation($text));
         Str::macro('glue', fn (string $glue, ...$strings): string => Text::glue($glue, ...$strings));
         Str::macro('natural', fn (string $text): string => Text::natural($text));
@@ -304,6 +321,7 @@ class Text
      */
     private static function bootStringableMacros(): void
     {
+        Stringable::macro('enclose', fn ($before, $after = null): Stringable => new Stringable(Text::enclose($this->value, $before, $after)));
         Stringable::macro('exclamation', fn (): Stringable => new Stringable(Text::exclamation($this->value)));
         Stringable::macro('natural', fn (): Stringable => new Stringable(Text::natural($this->value)));
         Stringable::macro('normalizeWhitespace', fn (): Stringable => new Stringable(Text::normalizeWhitespace($this->value)));

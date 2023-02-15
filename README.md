@@ -59,6 +59,7 @@ This package adds a number of helpfull methods to `Illuminate\Support\Str`. Chec
 ## Available methods
 
 Most methods are chainable using [`Illuminate\Support\Str::of()`](https://laravel.com/docs/9.x/helpers#fluent-strings) or Laravel 9's [`str()`](https://laravel.com/docs/9.x/helpers#method-str) helper function. Methods marked with an asterisk (*) are not chainable.
+- [`enclose`](#enclose)
 - [`exclamation`](#exclamation)
 - [`glue`](#glue)*
 - [`natural`](#natural)
@@ -72,7 +73,7 @@ Most methods are chainable using [`Illuminate\Support\Str::of()`](https://larave
 - [`unprefix`](#unprefix)
 - [`unsuffix`](#unsuffix)
 - [`unwrap`](#unwrap)
-- [`wrap`](#wrap)
+- ~~[`wrap`](#wrap)~~
 
 
 
@@ -87,6 +88,20 @@ Most methods return an instance of the class. To convert to a string, either typ
 
 
 ## Available methods
+
+
+### enclose
+
+*Since v3.0.2*
+
+Enclose a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
+
+```php
+Str::enclose('directory', '/'); //=> '/directory/'
+Str::enclose('directory/', '/'); //=> '/directory/'
+Str::enclose('Paragraph', '<p>', '</p>'); //=> '<p>Paragraph</p>'
+Str::enclose('<p>Paragraph</p>', '<p>', '</p>'); //=> '<p>Paragraph</p>'
+```
 
 ### exclamation
 
@@ -241,18 +256,11 @@ Str::unwrap('/present/', '/') //=> 'present'
 ```
 
 
-### wrap
+### ~~wrap~~
 
 *Since v1.0.0*
-
-Wrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
-
-```php
-Str::wrap('directory', '/'); //=> '/directory/'
-Str::wrap('directory/', '/'); //=> '/directory/'
-Str::wrap('Paragraph', '<p>', '</p>'); //=> '<p>Paragraph</p>'
-Str::wrap('<p>Paragraph</p>', '<p>', '</p>'); //=> '<p>Paragraph</p>'
-```
+\
+**Deprecated since v3.0.2**: No longer to be used in Laravel v9.31 or above, because `Str::wrap()` overrides this method. Use `Str::enclose()` instead.
 
 
 ## Available classes
