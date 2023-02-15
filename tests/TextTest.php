@@ -9,6 +9,25 @@ use Vendeka\Text\Paragraphs;
 
 class TextTest extends Test
 {
+    public function testEncloseMethod(): void
+    {
+        $this->assertIsString(Str::enclose('Instance', '|'));
+        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->wrap('|'));
+
+        // String
+        $this->assertEquals('/path/', Str::enclose('path', '/'));
+        $this->assertEquals('/path/', Str::enclose('path/', '/'));
+        $this->assertEquals('/path/', Str::enclose('/path', '/'));
+        $this->assertEquals('/path/', Str::enclose('/path/', '/'));
+        $this->assertEquals('/x/path/y/', Str::enclose('path', '/x/', '/y/'));
+        $this->assertEquals('/x/path/y/', Str::enclose('/x/path', '/x/', '/y/'));
+        $this->assertEquals('/x/path/y/', Str::enclose('path/y/', '/x/', '/y/'));
+
+        // Array
+        $this->assertEquals('xXNo0bMaster69Xx', Str::enclose('No0bMaster69', ['X', 'x']));
+        $this->assertEquals('xX420No0bMaster420Xx', Str::enclose('No0bMaster', ['420', 'X', 'x']));
+    }
+
     public function testExclamationMethod()
     {
         $this->assertIsString(Str::exclamation('String'));

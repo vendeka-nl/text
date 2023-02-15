@@ -21,10 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: php-actions/composer@master
+        with:
+          args: --ignore-platform-req=php
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
           php_version: ${{ matrix.php-versions }}
+          version: 9
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           args: --coverage-text
