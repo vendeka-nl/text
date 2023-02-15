@@ -25,6 +25,7 @@ jobs:
         uses: php-actions/phpunit@v3
         with:
           php_version: ${{ matrix.php-versions }}
+          version: 9
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           args: --coverage-text
