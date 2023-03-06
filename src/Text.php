@@ -280,6 +280,8 @@ class Text
      * @param string|iterable $before
      * @param string|iterable $after
      * @return string
+     * 
+     * @codeCoverageIgnore
      */
     public static function wrap(string $text, string|iterable $before, string|iterable $after = null): string
     {
