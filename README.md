@@ -30,8 +30,9 @@ use Vendeka\Text\Text;
 Text::boot();
 ```
 
+## Upgrading
 
-## Upgrading from v1.x
+### Upgrading from v1
 
 Version 2.0.x requires PHP 7.4 or higher. Version 3.0.x requires PHP 8.0 or higher.
 
@@ -49,6 +50,14 @@ Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str
 | `Vendeka\Text\Text::toLowerCase()` | `Illuminate\Support\Str::lower()` |
 | `Vendeka\Text\Text::toTitleCase()` | `Illuminate\Support\Str::title()` |
 | `Vendeka\Text\Text::toUpperCase()` | `Illuminate\Support\Str::upper()` |
+
+### Upgrading from v3.0
+
+Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version.
+
+| v3.0 | v3.1+ |
+|----|----|
+|`Illuminate\Support\Str::wrap()`|`Illuminate\Support\Str::enclose()`|
 
 
 # Usage
@@ -74,7 +83,6 @@ Most methods are chainable using [`Illuminate\Support\Str::of()`](https://larave
 - [`unsuffix`](#unsuffix)
 - [`unwrap`](#unwrap)
 - ~~[`wrap`](#wrap)~~
-
 
 
 ```php

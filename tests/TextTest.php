@@ -12,7 +12,7 @@ class TextTest extends Test
     public function testEncloseMethod(): void
     {
         $this->assertIsString(Str::enclose('Instance', '|'));
-        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->wrap('|'));
+        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->enclose('|'));
 
         // String
         $this->assertEquals('/path/', Str::enclose('path', '/'));
@@ -174,24 +174,5 @@ class TextTest extends Test
         $this->assertEquals('path', Str::unwrap('x/path/x', ['/', 'x', '/']));
         $this->assertEquals('path', Str::unwrap('x/path/x', ['x', '/', 'q', 'x']));
         $this->assertEquals('path', Str::unwrap('/x/path/y/', ['/x/', '/a/'], ['/y/', '/z/']));
-    }
-
-    public function testWrapMethod(): void
-    {
-        $this->assertIsString(Str::wrap('Instance', '|'));
-        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->wrap('|'));
-
-        // String
-        $this->assertEquals('/path/', Str::wrap('path', '/'));
-        $this->assertEquals('/path/', Str::wrap('path/', '/'));
-        $this->assertEquals('/path/', Str::wrap('/path', '/'));
-        $this->assertEquals('/path/', Str::wrap('/path/', '/'));
-        $this->assertEquals('/x/path/y/', Str::wrap('path', '/x/', '/y/'));
-        $this->assertEquals('/x/path/y/', Str::wrap('/x/path', '/x/', '/y/'));
-        $this->assertEquals('/x/path/y/', Str::wrap('path/y/', '/x/', '/y/'));
-
-        // Array
-        $this->assertEquals('xXNo0bMaster69Xx', Str::wrap('No0bMaster69', ['X', 'x']));
-        $this->assertEquals('xX420No0bMaster420Xx', Str::wrap('No0bMaster', ['420', 'X', 'x']));
     }
 }
