@@ -37,7 +37,8 @@ class Text
     }
 
     /**
-     * Enclose a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
+     * Enclose a text with a prefix and a (different) suffix. 
+     * If the suffix is `null` the prefix is also used as the suffix.
      * 
      * @param string $text
      * @param string|iterable $before
@@ -219,7 +220,8 @@ class Text
     }
 
     /**
-     * Unclose (unwrap) a text with a prefix and a (different) suffix. If the suffix is `null` the prefix is also used as the suffix.
+     * Unclose (unwrap) a text with a prefix and a (different) suffix.
+     * If the suffix is `null` the prefix is also used as the suffix.
      * 
      * @param string $text 
      * @param string|iterable $before
@@ -272,7 +274,8 @@ class Text
     }
 
     /**
-     * Unwrap a text with a prefix and a (different) suffix. If the suffix is `null` the prefix is also used as the suffix.
+     * Unwrap a text with a prefix and a (different) suffix. 
+     * If the suffix is `null` the prefix is also used as the suffix.
      *
      * @deprecated 3.1.1 No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `unclose()` method instead.
      * @see Vendeka\Text\Text::unclose()
@@ -290,7 +293,8 @@ class Text
     }
 
     /**
-     * Wrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
+     * Wrap a text with a prefix and a (different) suffix.
+     * If the suffix is `null` the prefix is also used as the suffix.
      *
      * @deprecated 3.0.2 No longer to be used in Laravel v9.31 or above, because `Illuminate\Support\Str::wrap()` overrides this method. Use the `enclose()` method instead.
      * @see Vendeka\Text\Text::enclose()
