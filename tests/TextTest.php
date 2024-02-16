@@ -123,6 +123,29 @@ class TextTest extends Test
         $this->assertInstanceOf(Paragraphs::class, Str::of('Paragraph?')->toParagraphs());
     }
 
+    public function testUncloseMethod(): void
+    {
+        $this->assertIsString(Str::unclose('Instance', '/'));
+        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->unclose('/'));
+
+        // String
+        $this->assertEquals('path', Str::unclose('path', '/'));
+        $this->assertEquals('path', Str::unclose('path/', '/'));
+        $this->assertEquals('path', Str::unclose('/path', '/'));
+        $this->assertEquals('path', Str::unclose('/path/', '/'));
+        $this->assertEquals('path', Str::unclose('path', '/x/', '/y/'));
+        $this->assertEquals('path', Str::unclose('/x/path', '/x/', '/y/'));
+        $this->assertEquals('path', Str::unclose('path/y/', '/x/', '/y/'));
+        $this->assertEquals('path', Str::unclose('/x/path/y/', '/x/', '/y/'));
+
+        // Array
+        $this->assertEquals('path', Str::unclose('/path/', ['/']));
+        $this->assertEquals('path', Str::unclose('/path/', ['/', '\\']));
+        $this->assertEquals('path', Str::unclose('x/path/x', ['/', 'x', '/']));
+        $this->assertEquals('path', Str::unclose('x/path/x', ['x', '/', 'q', 'x']));
+        $this->assertEquals('path', Str::unclose('/x/path/y/', ['/x/', '/a/'], ['/y/', '/z/']));
+    }
+
     public function testUnprefixMethod(): void
     {
         $this->assertIsString(Str::unprefix('Instance', 'In'));
@@ -151,28 +174,5 @@ class TextTest extends Test
         $this->assertEquals('path', Str::unsuffix('path/', ['/']));
         $this->assertEquals('path', Str::unsuffix('path/secret/', ['/', '/secret']));
         $this->assertEquals('path', Str::unsuffix('path/secret/', ['/', '/top-secret', '/secret']));
-    }
-
-    public function testUnwrapMethod(): void
-    {
-        $this->assertIsString(Str::unwrap('Instance', '/'));
-        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->unwrap('/'));
-
-        // String
-        $this->assertEquals('path', Str::unwrap('path', '/'));
-        $this->assertEquals('path', Str::unwrap('path/', '/'));
-        $this->assertEquals('path', Str::unwrap('/path', '/'));
-        $this->assertEquals('path', Str::unwrap('/path/', '/'));
-        $this->assertEquals('path', Str::unwrap('path', '/x/', '/y/'));
-        $this->assertEquals('path', Str::unwrap('/x/path', '/x/', '/y/'));
-        $this->assertEquals('path', Str::unwrap('path/y/', '/x/', '/y/'));
-        $this->assertEquals('path', Str::unwrap('/x/path/y/', '/x/', '/y/'));
-
-        // Array
-        $this->assertEquals('path', Str::unwrap('/path/', ['/']));
-        $this->assertEquals('path', Str::unwrap('/path/', ['/', '\\']));
-        $this->assertEquals('path', Str::unwrap('x/path/x', ['/', 'x', '/']));
-        $this->assertEquals('path', Str::unwrap('x/path/x', ['x', '/', 'q', 'x']));
-        $this->assertEquals('path', Str::unwrap('/x/path/y/', ['/x/', '/a/'], ['/y/', '/z/']));
     }
 }

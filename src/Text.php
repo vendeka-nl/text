@@ -219,6 +219,19 @@ class Text
     }
 
     /**
+     * Unclose (unwrap) a text with a prefix and a (different) suffix. If the suffix is `null` the prefix is also used as the suffix.
+     * 
+     * @param string $text 
+     * @param string|iterable $before
+     * @param string|iterable $after
+     * @return string
+     */
+    public static function unclose(string $text, string|iterable $before, string|iterable $after = null): string
+    {
+        return self::unsuffix(self::unprefix($text, $before), $after ?? $before);
+    }
+
+    /**
      * Remove a prefix if it is present.
      *
      * @param string $text
@@ -259,22 +272,27 @@ class Text
     }
 
     /**
-     * Unwrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
+     * Unwrap a text with a prefix and a (different) suffix. If the suffix is `null` the prefix is also used as the suffix.
      *
+     * @deprecated 3.1.1 No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `unclose()` method instead.
+     * @see Vendeka\Text\Text::unclose()
+     * 
      * @param string $text 
      * @param string|iterable $before
      * @param string|iterable $after
      * @return string
+     * 
+     * @codeCoverageIgnore
      */
     public static function unwrap(string $text, string|iterable $before, string|iterable $after = null): string
     {
-        return self::unsuffix(self::unprefix($text, $before), $after ?? $before);
+        return self::unclose($text, $before, $after);
     }
 
     /**
      * Wrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
      *
-     * @deprecated 3.0.2 No longer to be used in Laravel v9.31 or above, because `Str::wrap()` overrides this method. Use `Str::enclose()` instead.
+     * @deprecated 3.0.2 No longer to be used in Laravel v9.31 or above, because `Illuminate\Support\Str::wrap()` overrides this method. Use the `enclose()` method instead.
      * @see Vendeka\Text\Text::enclose()
      * 
      * @param string|iterable $before
@@ -308,6 +326,7 @@ class Text
         Str::macro('sentence', fn (string $text, string $cap = '.'): string => Text::sentence($text, $cap));
         Str::macro('toParagraphs', fn (string $text): Paragraphs => Text::toParagraphs($text));
         Str::macro('toWords', fn (mixed $text): Words => Text::toWords($text));
+        Str::macro('unclose', fn (string $text, $before, $after = null): string => Text::unclose($text, $before, $after));
         Str::macro('unprefix', fn (string $text, $lead): string => Text::unprefix($text, $lead));
         Str::macro('unsuffix', fn (string $text, $cap): string => Text::unsuffix($text, $cap));
         Str::macro('unwrap', fn (string $text, $before, $after = null): string => Text::unwrap($text, $before, $after));
@@ -331,6 +350,7 @@ class Text
         Stringable::macro('sentence', fn (string $cap = '.'): Stringable => new Stringable(Text::sentence($this->value, $cap)));
         Stringable::macro('toParagraphs', fn (): Paragraphs => Text::toParagraphs($this->value));
         Stringable::macro('toWords', fn (): Words => Text::toWords($this->value));
+        Stringable::macro('unclose', fn ($before, $after = null): Stringable => new Stringable(Text::unclose($this->value, $before, $after)));
         Stringable::macro('unprefix', fn ($lead): Stringable => new Stringable(Text::unprefix($this->value, $lead)));
         Stringable::macro('unsuffix', fn ($cap): Stringable => new Stringable(Text::unsuffix($this->value, $cap)));
         Stringable::macro('unwrap', fn ($before, $after = null): Stringable => new Stringable(Text::unwrap($this->value, $before, $after)));
