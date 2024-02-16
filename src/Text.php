@@ -344,8 +344,7 @@ class Text
      * 
      * @codeCoverageIgnore
      */
-
-.     private static function bootStringableMacros(): void
+    private static function bootStringableMacros(): void
     {
         Stringable::macro('enclose', fn ($before, $after = null): Stringable => new Stringable(Text::enclose($this->value, $before, $after)));
         Stringable::macro('exclamation', fn (): Stringable => new Stringable(Text::exclamation($this->value)));
