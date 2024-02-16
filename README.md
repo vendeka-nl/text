@@ -53,11 +53,22 @@ Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str
 
 ### Upgrading from v3.0
 
+#### Deprecated `wrap` method
+
 Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version.
 
 | v3.0 | v3.1+ |
 |----|----|
 |`Illuminate\Support\Str::wrap()`|`Illuminate\Support\Str::enclose()`|
+
+
+#### Deprecated `unwrap` method
+
+Version 3.1.1 deprecated the `unwrap` method because a method with the same name was added in `illuminate/support` v10.43 and overrides this packages' version.
+
+| v3.0 | v3.1.1+ |
+|----|----|
+|`Illuminate\Support\Str::unwrap()`|`Illuminate\Support\Str::unclose()`|
 
 
 # Usage
@@ -79,9 +90,10 @@ Most methods are chainable using [`Illuminate\Support\Str::of()`](https://larave
 - [`sentence`](#sentence)
 - [`toParagraphs`](#toParagraphs)
 - [`toWords`](#toWords)
+- [`unclose`](#unclose)
 - [`unprefix`](#unprefix)
 - [`unsuffix`](#unsuffix)
-- [`unwrap`](#unwrap)
+- ~~[`unwrap`](#unwrap)~~
 - ~~[`wrap`](#wrap)~~
 
 
@@ -102,7 +114,7 @@ Most methods return an instance of the class. To convert to a string, either typ
 
 *Since v3.0.2*
 
-Enclose a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
+Enclose a text with a prefix and a (different) suffix. If the suffix is `null` the prefix is also used as the suffix.
 
 ```php
 Str::enclose('directory', '/'); //=> '/directory/'
@@ -230,6 +242,18 @@ Str::of('aSnake')->toWords()->of()->lower(); //=> 'a snake'
 ```
 
 
+## unclose
+
+*Since v3.1.1*
+
+Unclose (unwrap) a text with a prefix and a (different) suffix. If the suffix is `null` the prefix is also used as the suffix.
+
+```php
+Str::unclose('<p>Gift</p>', '<p>', '</p>'); //=> 'Gift'
+Str::unclose('/present/', '/') //=> 'present'
+```
+
+
 ### unprefix
 
 *Since v1.0.0*
@@ -252,23 +276,18 @@ Str::unsuffix('/var/www/', '/') //=> '/var/www'
 ```
 
 
-### unwrap
+### ~~unwrap~~
 
 *Since v1.0.0*
-
-Unwrap a text with a prefix and a (different) suffix. If the suffix is empty the prefix is also used as the suffix.
-
-```php
-Str::unwrap('<p>Gift</p>', '<p>', '</p>'); //=> 'Gift'
-Str::unwrap('/present/', '/') //=> 'present'
-```
+\
+**Deprecated since v3.1.1**:  No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `unclose()` method instead.
 
 
 ### ~~wrap~~
 
 *Since v1.0.0*
 \
-**Deprecated since v3.0.2**: No longer to be used in Laravel v9.31 or above, because `Str::wrap()` overrides this method. Use `Str::enclose()` instead.
+**Deprecated since v3.0.2**: No longer to be used in Laravel v9.31 or above, because `Illuminate\Support\Str::wrap()` overrides this method. Use the `enclose()` method instead.
 
 
 ## Available classes
