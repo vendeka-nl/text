@@ -58,7 +58,7 @@ class Paragraphs extends Collection implements Htmlable
      * Returns the paragraphs as a HTML string wrapped in <p> tags.
      * Single new lines are replaced with the break character(s) set with `<br>`.
      * 
-     * @params string|iterable Attributes to add to every paragraph element
+     * @param string|iterable Attributes to add to every paragraph element
      * @return string
      */
     public function toHtml(string|iterable $attributes = ''): string
@@ -99,7 +99,7 @@ class Paragraphs extends Collection implements Htmlable
     /**
      * Build a HTML attribute string
      * 
-     * @params string|iterable $attributes Attributes
+     * @param string|iterable $attributes Attributes
      * @return string
      * 
      * @codeCoverageIgnore
