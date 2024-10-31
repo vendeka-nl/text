@@ -1,6 +1,6 @@
 # Text helpers
 
-![Packagist Version](https://img.shields.io/packagist/v/vendeka-nl/text)
+[![Packagist Version](https://img.shields.io/packagist/v/vendeka-nl/text)](https://packagist.org/packages/vendeka-nl/text)
 
 This package adds a handful of useful string helper methods to [`Illuminate\Support\Str`](https://laravel.com/docs/master/helpers#strings).
 
