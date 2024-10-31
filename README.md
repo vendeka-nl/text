@@ -34,9 +34,9 @@ Text::boot();
 
 ### Upgrading from v1
 
-Version 2.0.x requires PHP 7.4 or higher. Version 3.0.x requires PHP 8.0 or higher.
+Version 2.0.x requires PHP 7.4 or higher. Version 3.0.x requires PHP 8.0 or higher. Version 3.3 requires PHP 8.2 or higher.
 
-Next, update the package version of `vendeka-nl/text` to `"^3"` (or `"^2"` if you still are on PHP 7.4) in your composer.json and run `composer update vendeka-nl/text` to update the package.
+Next, update the package version of `vendeka-nl/text` to `"^3"` in your composer.json and run `composer update vendeka-nl/text` to update the package.
 
 After updating the package, change your calls using the table below. 
 Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str`.
@@ -83,12 +83,12 @@ Version 3.1.1 deprecated the `normalizeWhitespace` method, in favor of `squish` 
 
 # Usage
 
-This package adds a number of helpfull methods to `Illuminate\Support\Str`. Check the [Laravel documentation](https://laravel.com/docs/9.x/helpers#strings-method-list) to see the available methods on `Illuminate\Support\Str`.
+This package adds a number of helpful methods to `Illuminate\Support\Str`. Check the [Laravel documentation](https://laravel.com/docs/11.x/helpers#strings-method-list) to see the available methods on `Illuminate\Support\Str`.
 
 
 ## Available methods
 
-Most methods are chainable using [`Illuminate\Support\Str::of()`](https://laravel.com/docs/9.x/helpers#fluent-strings) or Laravel 9's [`str()`](https://laravel.com/docs/9.x/helpers#method-str) helper function. Methods marked with an asterisk (*) are not chainable.
+Most methods are chainable using [`Illuminate\Support\Str::of()`](https://laravel.com/docs/11.x/helpers#fluent-strings) or Laravel's [`str()`](https://laravel.com/docs/11.x/helpers#method-str) helper function. Methods marked with an asterisk (*) are not chainable.
 - [`enclose`](#enclose)
 - [`exclamation`](#exclamation)
 - [`glue`](#glue)*
@@ -110,8 +110,8 @@ Most methods are chainable using [`Illuminate\Support\Str::of()`](https://larave
 ```php
 use Illuminate\Support\Str;
 
-Str::of('taco')->wrap('[', ']')->upper();   //=> '[TACO]'
-Str::unwrap('/gift/', '/');                 //=> 'gift'
+Str::of('taco')->wrap('[', ']')->upper(); //=> '[TACO]'
+Str::unwrap('/gift/', '/'); //=> 'gift'
 ```
 
 Most methods return an instance of the class. To convert to a string, either typecast to a `string` (`echo` will do this automatically) or call the `toString()` method.
