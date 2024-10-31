@@ -7,12 +7,9 @@ use Illuminate\Support\Collection;
 use Vendeka\Text\Words;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use Vendeka\Text\Traits\NormalizesWhitespace;
 
 class Text
 {
-    use NormalizesWhitespace;
-
     private static bool $isBooted = false;
 
     /**
@@ -79,7 +76,6 @@ class Text
      * 
      * @param string $glue
      * @param mixed $strings
-     * 
      * @return string
      */
     public static function glue(string $glue, ...$strings)
@@ -129,12 +125,13 @@ class Text
     /**
      * Removes duplicate whitespace characters and trim.
      * 
+     * @deprecated 3.3.1 Use `Str::squish()` method instead.
      * @param string $text 
      * @return string
      */
     public static function normalizeWhitespace(string $text): string
     {
-        return self::purgeWhitespace($text);
+        return Str::squish($text);
     }
 
     /**
@@ -238,7 +235,7 @@ class Text
      *
      * @param string $text
      * @param string|iterable $lead
-     * @return string|array
+     * @return string
      */
     public static function unprefix(string $text, string|iterable $lead): string
     {
@@ -258,7 +255,7 @@ class Text
      *
      * @param string $text
      * @param string|iterable $cap
-     * @return string|array
+     * @return string
      */
     public static function unsuffix(string $text, string|iterable $cap): string
     {

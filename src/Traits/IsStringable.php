@@ -5,6 +5,7 @@ namespace Vendeka\Text\Traits;
 use Illuminate\Support\Stringable;
 
 /**
+ * @internal Provides method to convert to instance `Illuminate\Support\Stringable`.
  * @codeCoverageIgnore
  */
 trait IsStringable

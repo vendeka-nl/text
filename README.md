@@ -1,6 +1,6 @@
 # Text helpers
 
-![Packagist Version](https://img.shields.io/packagist/v/vendeka-nl/text)
+[![Packagist Version](https://img.shields.io/packagist/v/vendeka-nl/text)](https://packagist.org/packages/vendeka-nl/text)
 
 This package adds a handful of useful string helper methods to [`Illuminate\Support\Str`](https://laravel.com/docs/master/helpers#strings).
 
@@ -30,60 +30,28 @@ use Vendeka\Text\Text;
 Text::boot();
 ```
 
-## Upgrading
-
-### Upgrading from v1
-
-Version 2.0.x requires PHP 7.4 or higher. Version 3.0.x requires PHP 8.0 or higher.
-
-Next, update the package version of `vendeka-nl/text` to `"^3"` (or `"^2"` if you still are on PHP 7.4) in your composer.json and run `composer update vendeka-nl/text` to update the package.
-
-After updating the package, change your calls using the table below. 
-Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str`.
-
-| v1 | v2+ |
-|----|----|
-| `Vendeka\Text\Fluid` | `Illuminate\Support\Str::of()`
-| `Vendeka\Text\Text::changeCase()` | `Illuminate\Support\Str::lower()`<br>`Illuminate\Support\Str::upper()`<br>`Illuminate\Support\Str::ucfirst()` <br>`Illuminate\Support\Str::title()` |
-| `Vendeka\Text\Text::firstToUpperCase()` | `Illuminate\Support\Str::ucfirst()` |
-| `Vendeka\Text\Text::startsWith()` | `Illuminate\Support\Str::startsWith()` |
-| `Vendeka\Text\Text::toLowerCase()` | `Illuminate\Support\Str::lower()` |
-| `Vendeka\Text\Text::toTitleCase()` | `Illuminate\Support\Str::title()` |
-| `Vendeka\Text\Text::toUpperCase()` | `Illuminate\Support\Str::upper()` |
-
-### Upgrading from v3.0
-
-#### Deprecated `wrap` method
-
-Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version.
-
-| v3.0 | v3.1+ |
-|----|----|
-|`Illuminate\Support\Str::wrap()`|`Illuminate\Support\Str::enclose()`|
-
-
-#### Deprecated `unwrap` method
-
-Version 3.1.1 deprecated the `unwrap` method because a method with the same name was added in `illuminate/support` v10.43 and overrides this packages' version.
-
-| v3.0 | v3.1.1+ |
-|----|----|
-|`Illuminate\Support\Str::unwrap()`|`Illuminate\Support\Str::unclose()`|
-
 
 # Usage
 
-This package adds a number of helpfull methods to `Illuminate\Support\Str`. Check the [Laravel documentation](https://laravel.com/docs/9.x/helpers#strings-method-list) to see the available methods on `Illuminate\Support\Str`.
+This package adds a number of helpful methods to `Illuminate\Support\Str`. Check the [Laravel documentation](https://laravel.com/docs/11.x/helpers#strings-method-list) to see the available methods on `Illuminate\Support\Str`.
+
+```php
+use Illuminate\Support\Str;
+
+Str::of('taco')->enclose('[', ']')->upper(); //=> '[TACO]'
+Str::unclose('/gift/', '/'); //=> 'gift'
+```
 
 
 ## Available methods
 
-Most methods are chainable using [`Illuminate\Support\Str::of()`](https://laravel.com/docs/9.x/helpers#fluent-strings) or Laravel 9's [`str()`](https://laravel.com/docs/9.x/helpers#method-str) helper function. Methods marked with an asterisk (*) are not chainable.
+Most methods are chainable using the `Illuminate\Support\Stringable` class, either by using [`Illuminate\Support\Str::of()`](https://laravel.com/docs/11.x/helpers#fluent-strings) or Laravel's [`str()`](https://laravel.com/docs/11.x/helpers#method-str) helper function. To convert to a string, either typecast to a `string` (`echo` will do this automatically) or call the `toString()` method. Methods marked with an asterisk (*) are not chainable
+
 - [`enclose`](#enclose)
 - [`exclamation`](#exclamation)
 - [`glue`](#glue)*
 - [`natural`](#natural)
-- [`normalizeWhitespace`](#normalizeWhitespace)
+- ~~[`normalizeWhitespace`](#normalizeWhitespace)~~
 - [`nullIfBlank`](#nullIfBlank)*
 - [`nullIfEmpty`](#nullIfEmpty)*
 - [`question`](#question)
@@ -95,19 +63,6 @@ Most methods are chainable using [`Illuminate\Support\Str::of()`](https://larave
 - [`unsuffix`](#unsuffix)
 - ~~[`unwrap`](#unwrap)~~
 - ~~[`wrap`](#wrap)~~
-
-
-```php
-use Illuminate\Support\Str;
-
-Str::of('taco')->wrap('[', ']')->upper();   //=> '[TACO]'
-Str::unwrap('/gift/', '/');                 //=> 'gift'
-```
-
-Most methods return an instance of the class. To convert to a string, either typecast to a `string` (`echo` will do this automatically) or call the `toString()` method.
-
-
-## Available methods
 
 
 ### enclose
@@ -159,9 +114,11 @@ Str::natural('i_love_kebab'); // => 'I love kebab'
 ```
 
 
-### normalizeWhitespace
+### ~~normalizeWhitespace~~
 
 *Since v2.0.0*
+\
+**Deprecated since v3.3.1**:  No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `Str::squish()` method instead.
 
 Removes duplicate whitespace characters and trims.
 
@@ -357,6 +314,58 @@ Str::toWords('my-slug')->toString(); // => 'my slug'
 Str::toWords('my-folder')->toString('/'); // => 'my/slug'
 (string) Str::toWords("It's a kind of magic!"); // => "It's a kind of magic!"
 ```
+
+
+# Upgrading
+
+## Upgrading from v1
+
+Version 2.0.x requires PHP 7.4 or higher. Version 3.0.x requires PHP 8.0 or higher. Version 3.3 requires PHP 8.2 or higher.
+
+Next, update the package version of `vendeka-nl/text` to `"^3"` in your composer.json and run `composer update vendeka-nl/text` to update the package.
+
+After updating the package, change your calls using the table below. 
+Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str`.
+
+| v1 | v2+ |
+|----|----|
+| `Vendeka\Text\Fluid` | `Illuminate\Support\Str::of()`
+| `Vendeka\Text\Text::changeCase()` | `Illuminate\Support\Str::lower()`<br>`Illuminate\Support\Str::upper()`<br>`Illuminate\Support\Str::ucfirst()` <br>`Illuminate\Support\Str::title()` |
+| `Vendeka\Text\Text::firstToUpperCase()` | `Illuminate\Support\Str::ucfirst()` |
+| `Vendeka\Text\Text::startsWith()` | `Illuminate\Support\Str::startsWith()` |
+| `Vendeka\Text\Text::toLowerCase()` | `Illuminate\Support\Str::lower()` |
+| `Vendeka\Text\Text::toTitleCase()` | `Illuminate\Support\Str::title()` |
+| `Vendeka\Text\Text::toUpperCase()` | `Illuminate\Support\Str::upper()` |
+
+## Upgrading from v3.0
+
+### Deprecated `wrap` method
+
+Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version.
+
+| v3.0 | v3.1+ |
+|----|----|
+|`Illuminate\Support\Str::wrap()`|`Illuminate\Support\Str::enclose()`|
+
+
+### Deprecated `unwrap` method
+
+Version 3.1.1 deprecated the `unwrap` method because a method with the same name was added in `illuminate/support` v10.43 and overrides this packages' version.
+
+| v3.0 | v3.1.1+ |
+|----|----|
+|`Illuminate\Support\Str::unwrap()`|`Illuminate\Support\Str::unclose()`|
+
+
+## Upgrading from v3.2
+
+### Deprecated `normalizeWhitespace` method
+
+Version 3.1.1 deprecated the `normalizeWhitespace` method, in favor of `squish` method that comes with `illuminate/support`.
+
+| v3.2 | v3.3.1+ |
+|----|----|
+|`Illuminate\Support\Str::normalizeWhitespace()`|`Illuminate\Support\Str::squish()`|
 
 
 # Testing

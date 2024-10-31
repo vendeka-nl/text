@@ -3,14 +3,13 @@
 namespace Vendeka\Text;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Stringable;
 use Vendeka\Text\Traits\IsStringable;
-use Vendeka\Text\Traits\NormalizesWhitespace;
 
 class Words extends Collection
 {
     use IsStringable;
-    use NormalizesWhitespace;
 
     /**
      * @param mixed $text 
@@ -21,7 +20,7 @@ class Words extends Collection
         {
             $text = preg_replace('/((?:[A-Z]\.?)+)/', ' $1', $text);
             $text = str_replace(['_', '-'], ' ', $text);
-            $text = self::purgeWhitespace($text);
+            $text = Str::squish($text);
             $text = explode(' ', $text);
         }
 
