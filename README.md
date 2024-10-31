@@ -71,6 +71,16 @@ Version 3.1.1 deprecated the `unwrap` method because a method with the same name
 |`Illuminate\Support\Str::unwrap()`|`Illuminate\Support\Str::unclose()`|
 
 
+### Upgrading from v3.2
+
+#### Deprecated `normalizeWhitespace` method
+
+Version 3.1.1 deprecated the `normalizeWhitespace` method, in favor of `squish` method that comes with `illuminate/support`.
+
+| v3.2 | v3.3.1+ |
+|----|----|
+|`Illuminate\Support\Str::normalizeWhitespace()`|`Illuminate\Support\Str::squish()`|
+
 # Usage
 
 This package adds a number of helpfull methods to `Illuminate\Support\Str`. Check the [Laravel documentation](https://laravel.com/docs/9.x/helpers#strings-method-list) to see the available methods on `Illuminate\Support\Str`.
@@ -83,7 +93,7 @@ Most methods are chainable using [`Illuminate\Support\Str::of()`](https://larave
 - [`exclamation`](#exclamation)
 - [`glue`](#glue)*
 - [`natural`](#natural)
-- [`normalizeWhitespace`](#normalizeWhitespace)
+- ~~[`normalizeWhitespace`](#normalizeWhitespace)~~
 - [`nullIfBlank`](#nullIfBlank)*
 - [`nullIfEmpty`](#nullIfEmpty)*
 - [`question`](#question)
@@ -159,9 +169,11 @@ Str::natural('i_love_kebab'); // => 'I love kebab'
 ```
 
 
-### normalizeWhitespace
+### ~~normalizeWhitespace~~
 
 *Since v2.0.0*
+\
+**Deprecated since v3.3.1**:  No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `Str::squish()` method instead.
 
 Removes duplicate whitespace characters and trims.
 

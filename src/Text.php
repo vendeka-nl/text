@@ -7,12 +7,9 @@ use Illuminate\Support\Collection;
 use Vendeka\Text\Words;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use Vendeka\Text\Traits\NormalizesWhitespace;
 
 class Text
 {
-    use NormalizesWhitespace;
-
     private static bool $isBooted = false;
 
     /**
@@ -129,12 +126,13 @@ class Text
     /**
      * Removes duplicate whitespace characters and trim.
      * 
+     * @deprecated 3.3.1 Use `Str::squish()` method instead.
      * @param string $text 
      * @return string
      */
     public static function normalizeWhitespace(string $text): string
     {
-        return self::purgeWhitespace($text);
+        return Str::squish($text);
     }
 
     /**
