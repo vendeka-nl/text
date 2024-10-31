@@ -76,7 +76,6 @@ class Text
      * 
      * @param string $glue
      * @param mixed $strings
-     * 
      * @return string
      */
     public static function glue(string $glue, ...$strings)
@@ -236,7 +235,7 @@ class Text
      *
      * @param string $text
      * @param string|iterable $lead
-     * @return string|array
+     * @return string
      */
     public static function unprefix(string $text, string|iterable $lead): string
     {
@@ -256,7 +255,7 @@ class Text
      *
      * @param string $text
      * @param string|iterable $cap
-     * @return string|array
+     * @return string
      */
     public static function unsuffix(string $text, string|iterable $cap): string
     {
