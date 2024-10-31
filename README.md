@@ -199,7 +199,7 @@ Str::of('aSnake')->toWords()->of()->lower(); //=> 'a snake'
 ```
 
 
-## unclose
+### unclose
 
 *Since v3.1.1*
 
