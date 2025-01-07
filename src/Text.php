@@ -39,10 +39,10 @@ class Text
      * 
      * @param string $text
      * @param string|iterable $before
-     * @param string|iterable $after
+     * @param string|iterable|null $after
      * @return string
      */
-    public static function enclose(string $text, string|iterable $before, string|iterable $after = null): string
+    public static function enclose(string $text, string|iterable $before, string|iterable|null $after = null): string
     {
         $after = (array) ($after ?? $before);
 
@@ -222,10 +222,10 @@ class Text
      * 
      * @param string $text 
      * @param string|iterable $before
-     * @param string|iterable $after
+     * @param string|iterable|null $after
      * @return string
      */
-    public static function unclose(string $text, string|iterable $before, string|iterable $after = null): string
+    public static function unclose(string $text, string|iterable $before, string|iterable|null $after = null): string
     {
         return self::unsuffix(self::unprefix($text, $before), $after ?? $before);
     }
@@ -279,12 +279,12 @@ class Text
      * 
      * @param string $text 
      * @param string|iterable $before
-     * @param string|iterable $after
+     * @param string|iterable|null $after
      * @return string
      * 
      * @codeCoverageIgnore
      */
-    public static function unwrap(string $text, string|iterable $before, string|iterable $after = null): string
+    public static function unwrap(string $text, string|iterable $before, string|iterable|null $after = null): string
     {
         return self::unclose($text, $before, $after);
     }
@@ -297,12 +297,12 @@ class Text
      * @see Vendeka\Text\Text::enclose()
      * 
      * @param string|iterable $before
-     * @param string|iterable $after
+     * @param string|iterable|null $after
      * @return string
      * 
      * @codeCoverageIgnore
      */
-    public static function wrap(string $text, string|iterable $before, string|iterable $after = null): string
+    public static function wrap(string $text, string|iterable $before, string|iterable|null $after = null): string
     {
         return self::enclose($text, $before, $after);
     }
