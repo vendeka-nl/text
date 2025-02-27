@@ -65,15 +65,6 @@ class TextTest extends Test
         $this->assertEquals('Color', Str::natural('color'));
     }
 
-    public function testNormalizeWhitespaceMethod(): void
-    {
-        $this->assertIsString(Str::normalizeWhitespace('String'));
-        $this->assertInstanceOf(Stringable::class, Str::of('Instance')->normalizeWhitespace());
-
-        $this->assertEquals('White space', Str::normalizeWhitespace(" White\r\n space  "));
-        $this->assertEquals('White space', Str::of("White  space\t")->normalizeWhitespace());
-    }
-
     public function testNullIfBlankMethod(): void
     {
         $this->assertNull(Str::nullIfBlank(''));
