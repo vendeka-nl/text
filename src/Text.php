@@ -123,18 +123,6 @@ class Text
     }
 
     /**
-     * Removes duplicate whitespace characters and trim.
-     * 
-     * @deprecated 3.3.1 Use `Str::squish()` method instead.
-     * @param string $text 
-     * @return string
-     */
-    public static function normalizeWhitespace(string $text): string
-    {
-        return Str::squish($text);
-    }
-
-    /**
      * Convert a blank string to null.
      * 
      * @param string|null $text 
@@ -271,43 +259,6 @@ class Text
     }
 
     /**
-     * Unwrap a text with a prefix and a (different) suffix. 
-     * If the suffix is `null` the prefix is also used as the suffix.
-     *
-     * @deprecated 3.1.1 No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `unclose()` method instead.
-     * @see Vendeka\Text\Text::unclose()
-     * 
-     * @param string $text 
-     * @param string|iterable $before
-     * @param string|iterable|null $after
-     * @return string
-     * 
-     * @codeCoverageIgnore
-     */
-    public static function unwrap(string $text, string|iterable $before, string|iterable|null $after = null): string
-    {
-        return self::unclose($text, $before, $after);
-    }
-
-    /**
-     * Wrap a text with a prefix and a (different) suffix.
-     * If the suffix is `null` the prefix is also used as the suffix.
-     *
-     * @deprecated 3.0.2 No longer to be used in Laravel v9.31 or above, because `Illuminate\Support\Str::wrap()` overrides this method. Use the `enclose()` method instead.
-     * @see Vendeka\Text\Text::enclose()
-     * 
-     * @param string|iterable $before
-     * @param string|iterable|null $after
-     * @return string
-     * 
-     * @codeCoverageIgnore
-     */
-    public static function wrap(string $text, string|iterable $before, string|iterable|null $after = null): string
-    {
-        return self::enclose($text, $before, $after);
-    }
-
-    /**
      * Register the macros on `Illuminate\Support\Str`.
      * 
      * @return void
@@ -320,7 +271,6 @@ class Text
         Str::macro('exclamation', fn (string $text): string => Text::exclamation($text));
         Str::macro('glue', fn (string $glue, ...$strings): string => Text::glue($glue, ...$strings));
         Str::macro('natural', fn (string $text): string => Text::natural($text));
-        Str::macro('normalizeWhitespace', fn (string $text): string => Text::normalizeWhitespace($text));
         Str::macro('nullIfBlank', fn (?string $text): ?string => Text::nullIfBlank($text));
         Str::macro('nullIfEmpty', fn (?string $text): ?string => Text::nullIfEmpty($text));
         Str::macro('question', fn (string $text): string => Text::question($text));
@@ -330,8 +280,6 @@ class Text
         Str::macro('unclose', fn (string $text, $before, $after = null): string => Text::unclose($text, $before, $after));
         Str::macro('unprefix', fn (string $text, $lead): string => Text::unprefix($text, $lead));
         Str::macro('unsuffix', fn (string $text, $cap): string => Text::unsuffix($text, $cap));
-        Str::macro('unwrap', fn (string $text, $before, $after = null): string => Text::unwrap($text, $before, $after));
-        Str::macro('wrap', fn (string $text, $before, $after = null): string => Text::wrap($text, $before, $after));
     }
 
     /**
@@ -346,7 +294,6 @@ class Text
         Stringable::macro('enclose', fn ($before, $after = null): Stringable => new Stringable(Text::enclose($this->value, $before, $after)));
         Stringable::macro('exclamation', fn (): Stringable => new Stringable(Text::exclamation($this->value)));
         Stringable::macro('natural', fn (): Stringable => new Stringable(Text::natural($this->value)));
-        Stringable::macro('normalizeWhitespace', fn (): Stringable => new Stringable(Text::normalizeWhitespace($this->value)));
         Stringable::macro('question', fn (): Stringable => new Stringable(Text::question($this->value)));
         Stringable::macro('sentence', fn (string $cap = '.'): Stringable => new Stringable(Text::sentence($this->value, $cap)));
         Stringable::macro('toParagraphs', fn (): Paragraphs => Text::toParagraphs($this->value));
@@ -354,7 +301,5 @@ class Text
         Stringable::macro('unclose', fn ($before, $after = null): Stringable => new Stringable(Text::unclose($this->value, $before, $after)));
         Stringable::macro('unprefix', fn ($lead): Stringable => new Stringable(Text::unprefix($this->value, $lead)));
         Stringable::macro('unsuffix', fn ($cap): Stringable => new Stringable(Text::unsuffix($this->value, $cap)));
-        Stringable::macro('unwrap', fn ($before, $after = null): Stringable => new Stringable(Text::unwrap($this->value, $before, $after)));
-        Stringable::macro('wrap', fn ($before, $after = null): Stringable => new Stringable(Text::wrap($this->value, $before, $after)));
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Vendeka\Text;
 
-use Illuminate\Support\Stringable;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Str;

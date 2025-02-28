@@ -51,7 +51,6 @@ Most methods are chainable using the `Illuminate\Support\Stringable` class, eith
 - [`exclamation`](#exclamation)
 - [`glue`](#glue)*
 - [`natural`](#natural)
-- ~~[`normalizeWhitespace`](#normalizeWhitespace)~~
 - [`nullIfBlank`](#nullIfBlank)*
 - [`nullIfEmpty`](#nullIfEmpty)*
 - [`question`](#question)
@@ -61,8 +60,6 @@ Most methods are chainable using the `Illuminate\Support\Stringable` class, eith
 - [`unclose`](#unclose)
 - [`unprefix`](#unprefix)
 - [`unsuffix`](#unsuffix)
-- ~~[`unwrap`](#unwrap)~~
-- ~~[`wrap`](#wrap)~~
 
 
 ### enclose
@@ -111,19 +108,6 @@ Create a natural language version of a snake_case of kebab-case string.
 ```php
 Str::natural('my-first-blog'); //=> 'My first blog'
 Str::natural('i_love_kebab'); // => 'I love kebab'
-```
-
-
-### ~~normalizeWhitespace~~
-
-*Since v2.0.0*
-\
-**Deprecated since v3.3.1**:  No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `Str::squish()` method instead.
-
-Removes duplicate whitespace characters and trims.
-
-```php
-Str::normalizeWhitespace(" White\r\n  space "); //=> 'White space'
 ```
 
 
@@ -231,20 +215,6 @@ Remove a suffix if it is present.
 ```php
 Str::unsuffix('/var/www/', '/') //=> '/var/www'
 ```
-
-
-### ~~unwrap~~
-
-*Since v1.0.0*
-\
-**Deprecated since v3.1.1**:  No longer to be used in Laravel v10.42 or above, because `Illuminate\Support\Str::unwrap()` overrides this method. Use the `unclose()` method instead.
-
-
-### ~~wrap~~
-
-*Since v1.0.0*
-\
-**Deprecated since v3.0.2**: No longer to be used in Laravel v9.31 or above, because `Illuminate\Support\Str::wrap()` overrides this method. Use the `enclose()` method instead.
 
 
 ## Available classes
