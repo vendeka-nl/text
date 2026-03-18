@@ -212,6 +212,8 @@ class Text
     /**
      * Remove a prefix if it is present.
      *
+     * @deprecated 4.1.0 Use `\Illimunite\Support\Str::chopStart` instead. Please note that `chopStart` returns after the first matched needle (lead).
+     * 
      * @param string $text
      * @param string|iterable $lead
      * @return string
@@ -229,6 +231,8 @@ class Text
 
     /**
      * Remove a suffix if it is present.
+     *
+     * @deprecated 4.1.0 Use `\Illimunite\Support\Str::chopEnd` instead. Please note that `chopEnd` returns after the first matched needle (cap).
      *
      * @param string $text
      * @param string|iterable $cap
