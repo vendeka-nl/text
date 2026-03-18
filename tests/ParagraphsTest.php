@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
 use Vendeka\Text\Paragraphs;
 
-class ParagraphsTest extends Test
+class ParagraphsTest extends TestCase
 {
     public function testInstanceOfCollection(): void
     {

@@ -8,7 +8,7 @@ use Vendeka\Text\Tests\Helpers\CustomStringable;
 use Vendeka\Text\Tests\Helpers\ImplicitStringable;
 use Vendeka\Text\Words;
 
-class WordsTest extends Test
+class WordsTest extends TestCase
 {
     public function testInstanceOfCollection(): void
     {

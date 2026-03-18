@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Vendeka\Text\Paragraphs;
 
-class TextTest extends Test
+class TextTest extends TestCase
 {
     public function testEncloseMethod(): void
     {
