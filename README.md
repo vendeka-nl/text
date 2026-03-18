@@ -294,20 +294,35 @@ Str::toWords('my-folder')->toString('/'); // => 'my/slug'
 
 ### Deprecated `unprefix` method
 
-Version 4.1.0 deprecated the `unprefix` method, in favor of the `choStart` method that comes with `illuminate/support`. Please note that `chopStart` returns after the first matched needle (cap).
-
-Use `\Illimunite\Support\Str::chopStart` instead. Please note that `chopStart` returns after the first matched needle (lead).
+Version 4.1.0 deprecates the `unprefix` method, in favor of the `chopStart` method that comes with `illuminate/support`. Please note that `chopStart` returns after the first matched needle (cap).
 
 ### Deprecated `unsuffix` method
 
-Version 4.1.0 deprecated the `unsuffix` method, in favor of the `chopEnd` method that comes with `illuminate/support`. Please note that `chopEnd` returns after the first matched needle (cap).
+Version 4.1.0 deprecates the `unsuffix` method, in favor of the `chopEnd` method that comes with `illuminate/support`. Please note that `chopStart` returns after the first matched needle (lead).
+
+
+## Upgrading to v4.0
+
+### Dropped `wrap` method
+
+Version 4.0.0 removed the `wrap` method. Use `enclose` instead.
+
+
+### Dropped `unwrap` method
+
+Version 4.0.0 removed the `wrap` method. Use `unclose` instead.
+
+
+### Dropped `normalizeWhitespace` method
+
+Version 4.0.0 removed the `normalizeWhitespace` method, in favor of the `squish` method that comes with `illuminate/support`.
 
 
 ## Upgrading to v3.3
 
 ### PHP version bumped to 8.2
 
-Version 3.3 requires PHP 8.2 or higher
+Version 3.3 requires PHP 8.2 or higher.
 
 ### Deprecated `normalizeWhitespace` method
 
@@ -318,12 +333,11 @@ Version 3.1.1 deprecated the `normalizeWhitespace` method, in favor of the `squi
 
 ### Deprecated `wrap` method
 
-Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version.
-
+Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version. Use `enclose` instead.
 
 ### Deprecated `unwrap` method
 
-Version 3.1.1 deprecated the `unwrap` method because a method with the same name was added in `illuminate/support` v10.43 and overrides this packages' version.
+Version 3.1.1 deprecated the `unwrap` method because a method with the same name was added in `illuminate/support` v10.43 and overrides this packages' version.Use `unclose` instead.
 
 
 ## Upgrading to v3.0
