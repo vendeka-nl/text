@@ -4,9 +4,11 @@ namespace Vendeka\Text\Tests;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Vendeka\Text\Paragraphs;
 
-class ParagraphsTest extends Test
+#[CoversClass(Paragraphs::class)]
+class ParagraphsTest extends TestCase
 {
     public function testInstanceOfCollection(): void
     {

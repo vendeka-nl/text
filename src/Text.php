@@ -24,8 +24,7 @@ class Text
      */
     public static function boot(): void
     {
-        if (!self::$isBooted)
-        {
+        if (!self::$isBooted) {
             self::bootStrMacros();
             self::bootStringableMacros();
 
@@ -37,7 +36,6 @@ class Text
      * Enclose a text with a prefix and a (different) suffix. 
      * If the suffix is `null` the prefix is also used as the suffix.
      * 
-     * @param string $text
      * @param string|iterable $before
      * @param string|iterable|null $after
      * @return string
@@ -46,8 +44,7 @@ class Text
     {
         $after = (array) ($after ?? $before);
 
-        foreach ((array) $before as $i => $lead)
-        {
+        foreach ((array) $before as $i => $lead) {
             $text = Str::finish(Str::start($text, $lead), $after[$i]);
         }
 
@@ -63,8 +60,7 @@ class Text
      */
     public static function exclamation(string $text): string
     {
-        if (Str::endsWith($text, ['.', '!']))
-        {
+        if (Str::endsWith($text, ['.', '!'])) {
             return self::natural($text);
         }
 
@@ -78,32 +74,30 @@ class Text
      * @param mixed $strings
      * @return string
      */
-    public static function glue(string $glue, ...$strings)
+    public static function glue(string $glue, mixed ...$strings)
     {
-        if (is_array($strings) && count($strings) === 1 && is_array(reset($strings)))
-        {
+        if (is_array($strings) && count($strings) === 1 && is_array(reset($strings))) {
             $strings = reset($strings);
         }
 
         $lastIndex = count($strings) - 1;
         $index = 0;
 
-        return (new Collection($strings))->map(function (string $str) use ($glue, &$index, $lastIndex): string
-        {
-            if ($index > 0)
-            {
-                $str = Str::unprefix($str, $glue);
-            }
+        return (new Collection($strings))
+            ->map(function (string $str) use ($glue, &$index, $lastIndex): string {
+                if ($index > 0) {
+                    $str = Str::unprefix($str, $glue);
+                }
 
-            if ($index < $lastIndex)
-            {
-                $str = Str::unsuffix($str, $glue);
-            }
+                if ($index < $lastIndex) {
+                    $str = Str::unsuffix($str, $glue);
+                }
 
-            $index++;
+                $index++;
 
-            return $str;
-        })->join($glue);
+                return $str;
+            })
+            ->join($glue);
     }
 
     /**
@@ -114,8 +108,7 @@ class Text
      */
     public static function natural(string $text): string
     {
-        if (Str::contains($text, ' '))
-        {
+        if (Str::contains($text, ' ')) {
             $text = explode(' ', $text);
         }
 
@@ -169,13 +162,11 @@ class Text
     {
         $endMarks = ['.', '!', '?'];
 
-        if (!Arr::has($endMarks, $cap))
-        {
+        if (!Arr::has($endMarks, $cap)) {
             $endMarks = [$cap, ...$endMarks];
         }
 
-        if (Str::endsWith($text, $endMarks))
-        {
+        if (Str::endsWith($text, $endMarks)) {
             return self::natural($text);
         }
 
@@ -221,16 +212,16 @@ class Text
     /**
      * Remove a prefix if it is present.
      *
+     * @deprecated 4.1.0 Use `\Illimunite\Support\Str::chopStart` instead. Please note that `chopStart` returns after the first matched needle (lead).
+     * 
      * @param string $text
      * @param string|iterable $lead
      * @return string
      */
     public static function unprefix(string $text, string|iterable $lead): string
     {
-        foreach ((array) $lead as $l)
-        {
-            if (Str::startsWith($text, $l))
-            {
+        foreach ((array) $lead as $l) {
+            if (Str::startsWith($text, $l)) {
                 $text = Str::substr($text, Str::length($l));
             }
         }
@@ -241,16 +232,16 @@ class Text
     /**
      * Remove a suffix if it is present.
      *
+     * @deprecated 4.1.0 Use `\Illimunite\Support\Str::chopEnd` instead. Please note that `chopEnd` returns after the first matched needle (cap).
+     *
      * @param string $text
      * @param string|iterable $cap
      * @return string
      */
     public static function unsuffix(string $text, string|iterable $cap): string
     {
-        foreach ((array) $cap as $c)
-        {
-            if (Str::endsWith($text, $c))
-            {
+        foreach ((array) $cap as $c) {
+            if (Str::endsWith($text, $c)) {
                 $text = Str::substr($text, 0, -Str::length($c));
             }
         }
@@ -267,19 +258,19 @@ class Text
      */
     private static function bootStrMacros(): void
     {
-        Str::macro('enclose', fn (string $text, $before, $after = null): string => Text::enclose($text, $before, $after));
-        Str::macro('exclamation', fn (string $text): string => Text::exclamation($text));
-        Str::macro('glue', fn (string $glue, ...$strings): string => Text::glue($glue, ...$strings));
-        Str::macro('natural', fn (string $text): string => Text::natural($text));
-        Str::macro('nullIfBlank', fn (?string $text): ?string => Text::nullIfBlank($text));
-        Str::macro('nullIfEmpty', fn (?string $text): ?string => Text::nullIfEmpty($text));
-        Str::macro('question', fn (string $text): string => Text::question($text));
-        Str::macro('sentence', fn (string $text, string $cap = '.'): string => Text::sentence($text, $cap));
-        Str::macro('toParagraphs', fn (string $text): Paragraphs => Text::toParagraphs($text));
-        Str::macro('toWords', fn (mixed $text): Words => Text::toWords($text));
-        Str::macro('unclose', fn (string $text, $before, $after = null): string => Text::unclose($text, $before, $after));
-        Str::macro('unprefix', fn (string $text, $lead): string => Text::unprefix($text, $lead));
-        Str::macro('unsuffix', fn (string $text, $cap): string => Text::unsuffix($text, $cap));
+        Str::macro('enclose', fn(string $text, $before, $after = null): string => Text::enclose($text, $before, $after));
+        Str::macro('exclamation', fn(string $text): string => Text::exclamation($text));
+        Str::macro('glue', fn(string $glue, ...$strings): string => Text::glue($glue, ...$strings));
+        Str::macro('natural', fn(string $text): string => Text::natural($text));
+        Str::macro('nullIfBlank', fn(?string $text): ?string => Text::nullIfBlank($text));
+        Str::macro('nullIfEmpty', fn(?string $text): ?string => Text::nullIfEmpty($text));
+        Str::macro('question', fn(string $text): string => Text::question($text));
+        Str::macro('sentence', fn(string $text, string $cap = '.'): string => Text::sentence($text, $cap));
+        Str::macro('toParagraphs', fn(string $text): Paragraphs => Text::toParagraphs($text));
+        Str::macro('toWords', fn(mixed $text): Words => Text::toWords($text));
+        Str::macro('unclose', fn(string $text, $before, $after = null): string => Text::unclose($text, $before, $after));
+        Str::macro('unprefix', fn(string $text, $lead): string => Text::unprefix($text, $lead));
+        Str::macro('unsuffix', fn(string $text, $cap): string => Text::unsuffix($text, $cap));
     }
 
     /**
@@ -291,15 +282,15 @@ class Text
      */
     private static function bootStringableMacros(): void
     {
-        Stringable::macro('enclose', fn ($before, $after = null): Stringable => new Stringable(Text::enclose($this->value, $before, $after)));
-        Stringable::macro('exclamation', fn (): Stringable => new Stringable(Text::exclamation($this->value)));
-        Stringable::macro('natural', fn (): Stringable => new Stringable(Text::natural($this->value)));
-        Stringable::macro('question', fn (): Stringable => new Stringable(Text::question($this->value)));
-        Stringable::macro('sentence', fn (string $cap = '.'): Stringable => new Stringable(Text::sentence($this->value, $cap)));
-        Stringable::macro('toParagraphs', fn (): Paragraphs => Text::toParagraphs($this->value));
-        Stringable::macro('toWords', fn (): Words => Text::toWords($this->value));
-        Stringable::macro('unclose', fn ($before, $after = null): Stringable => new Stringable(Text::unclose($this->value, $before, $after)));
-        Stringable::macro('unprefix', fn ($lead): Stringable => new Stringable(Text::unprefix($this->value, $lead)));
-        Stringable::macro('unsuffix', fn ($cap): Stringable => new Stringable(Text::unsuffix($this->value, $cap)));
+        Stringable::macro('enclose', fn($before, $after = null): Stringable => new Stringable(Text::enclose($this->value, $before, $after)));
+        Stringable::macro('exclamation', fn(): Stringable => new Stringable(Text::exclamation($this->value)));
+        Stringable::macro('natural', fn(): Stringable => new Stringable(Text::natural($this->value)));
+        Stringable::macro('question', fn(): Stringable => new Stringable(Text::question($this->value)));
+        Stringable::macro('sentence', fn(string $cap = '.'): Stringable => new Stringable(Text::sentence($this->value, $cap)));
+        Stringable::macro('toParagraphs', fn(): Paragraphs => Text::toParagraphs($this->value));
+        Stringable::macro('toWords', fn(): Words => Text::toWords($this->value));
+        Stringable::macro('unclose', fn($before, $after = null): Stringable => new Stringable(Text::unclose($this->value, $before, $after)));
+        Stringable::macro('unprefix', fn($lead): Stringable => new Stringable(Text::unprefix($this->value, $lead)));
+        Stringable::macro('unsuffix', fn($cap): Stringable => new Stringable(Text::unsuffix($this->value, $cap)));
     }
 }

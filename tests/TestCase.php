@@ -2,10 +2,10 @@
 
 namespace Vendeka\Text\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Vendeka\Text\Text;
 
-abstract class Test extends TestCase
+abstract class TestCase extends PHPUnitTestCase
 {
     public static function setUpBeforeClass(): void
     {

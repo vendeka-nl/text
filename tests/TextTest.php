@@ -2,12 +2,18 @@
 
 namespace Vendeka\Text\Tests;
 
-use Vendeka\Text\Words;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use Vendeka\Text\Paragraphs;
+use Vendeka\Text\Text;
+use Vendeka\Text\Words;
 
-class TextTest extends Test
+#[CoversClass(Text::class)]
+#[UsesClass(Paragraphs::class)]
+#[UsesClass(Words::class)]
+class TextTest extends TestCase
 {
     public function testEncloseMethod(): void
     {
@@ -35,7 +41,7 @@ class TextTest extends Test
 
         $this->assertEquals('Clean your room!', Str::exclamation('clean your room'));
         $this->assertEquals('Clean your room!', Str::exclamation('Clean your room!'));
-        
+
         $this->assertEquals('Clean your room!', Str::exclamation('clean your room'));
         $this->assertEquals('Clean your room!', Str::exclamation('Clean your room!'));
     }

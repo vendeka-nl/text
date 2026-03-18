@@ -4,11 +4,13 @@ namespace Vendeka\Text\Tests;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Vendeka\Text\Tests\Helpers\CustomStringable;
 use Vendeka\Text\Tests\Helpers\ImplicitStringable;
 use Vendeka\Text\Words;
 
-class WordsTest extends Test
+#[CoversClass(Words::class)]
+class WordsTest extends TestCase
 {
     public function testInstanceOfCollection(): void
     {

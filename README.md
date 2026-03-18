@@ -2,7 +2,7 @@
 
 [![Packagist Version](https://img.shields.io/packagist/v/vendeka-nl/text)](https://packagist.org/packages/vendeka-nl/text)
 
-This package adds a handful of useful string helper methods to [`Illuminate\Support\Str`](https://laravel.com/docs/master/helpers#strings).
+This package adds a handful of useful string helper methods to [`Illuminate\Support\Str`](https://laravel.com/docs/strings).
 
 The package is developed and maintained by [Vendeka](https://www.vendeka.nl/), a company from the Netherlands.
 
@@ -11,7 +11,7 @@ The package is developed and maintained by [Vendeka](https://www.vendeka.nl/), a
 
 Install using composer:
 
-```shell
+```sh
 composer require vendeka-nl/text
 ```
 
@@ -33,7 +33,7 @@ Text::boot();
 
 # Usage
 
-This package adds a number of helpful methods to `Illuminate\Support\Str`. Check the [Laravel documentation](https://laravel.com/docs/11.x/helpers#strings-method-list) to see the available methods on `Illuminate\Support\Str`.
+This package adds a number of helpful methods to `Illuminate\Support\Str`. Check the [Laravel documentation](https://laravel.com/docs/strings#available-methods) to see the available methods on `Illuminate\Support\Str`.
 
 ```php
 use Illuminate\Support\Str;
@@ -45,7 +45,7 @@ Str::unclose('/gift/', '/'); //=> 'gift'
 
 ## Available methods
 
-Most methods are chainable using the `Illuminate\Support\Stringable` class, either by using [`Illuminate\Support\Str::of()`](https://laravel.com/docs/11.x/helpers#fluent-strings) or Laravel's [`str()`](https://laravel.com/docs/11.x/helpers#method-str) helper function. To convert to a string, either typecast to a `string` (`echo` will do this automatically) or call the `toString()` method. Methods marked with an asterisk (*) are not chainable
+Most methods are chainable using the `Illuminate\Support\Stringable` class, either by using [`Illuminate\Support\Str::of()`](https://laravel.com/docs/strings#fluent-strings-method-list) or Laravel's [`str()`](https://laravel.com/docs/strings#method-str) helper function. To convert to a string, either typecast to a `string` (`echo` will do this automatically) or call the `toString()` method. Methods marked with an asterisk (*) are not chainable
 
 - [`enclose`](#enclose)
 - [`exclamation`](#exclamation)
@@ -58,8 +58,8 @@ Most methods are chainable using the `Illuminate\Support\Stringable` class, eith
 - [`toParagraphs`](#toParagraphs)
 - [`toWords`](#toWords)
 - [`unclose`](#unclose)
-- [`unprefix`](#unprefix)
-- [`unsuffix`](#unsuffix)
+- ~~[`unprefix`](#unprefix)~~
+- ~~[`unsuffix`](#unsuffix)~~
 
 
 ### enclose
@@ -195,9 +195,10 @@ Str::unclose('/present/', '/') //=> 'present'
 ```
 
 
-### unprefix
+### ~~unprefix~~
 
-*Since v1.0.0*
+*Since v1.0.0* \
+*Deprecated since v4.1.0:* Use `\Illuminate\Support\Str::chopStart` instead. Please note that `chopStart` returns after the first matched needle (lead).
 
 Remove a prefix if it is present.
 
@@ -206,9 +207,10 @@ Str::unprefix('#yolo', '#') //=> 'yolo'
 ```
 
 
-### unsuffix
+### ~~unsuffix~~
 
-*Since v1.0.0*
+*Since v1.0.0* \
+*Deprecated since v4.1.0:* Use `\Illuminate\Support\Str::chopEnd` instead. Please note that `chopEnd` returns after the first matched needle (cap).
 
 Remove a suffix if it is present.
 
@@ -288,14 +290,73 @@ Str::toWords('my-folder')->toString('/'); // => 'my/slug'
 
 # Upgrading
 
-## Upgrading from v1
+## Upgrading to v4.1
 
-Version 2.0.x requires PHP 7.4 or higher. Version 3.0.x requires PHP 8.0 or higher. Version 3.3 requires PHP 8.2 or higher.
+### Deprecated `unprefix` method
 
-Next, update the package version of `vendeka-nl/text` to `"^3"` in your composer.json and run `composer update vendeka-nl/text` to update the package.
+Version 4.1.0 deprecates the `unprefix` method, in favor of the `chopStart` method that comes with `illuminate/support`. Please note that `chopStart` returns after the first matched needle (cap).
+
+### Deprecated `unsuffix` method
+
+Version 4.1.0 deprecates the `unsuffix` method, in favor of the `chopEnd` method that comes with `illuminate/support`. Please note that `chopEnd` returns after the first matched needle (lead).
+
+
+## Upgrading to v4.0
+
+### Dropped `wrap` method
+
+Version 4.0.0 removed the `wrap` method. Use `enclose` instead.
+
+
+### Dropped `unwrap` method
+
+Version 4.0.0 removed the `unwrap` method. Use `unclose` instead.
+
+
+### Dropped `normalizeWhitespace` method
+
+Version 4.0.0 removed the `normalizeWhitespace` method, in favor of the `squish` method that comes with `illuminate/support`.
+
+
+## Upgrading to v3.3
+
+### PHP version bumped to 8.2
+
+Version 3.3 requires PHP 8.2 or higher.
+
+### Deprecated `normalizeWhitespace` method
+
+Version 3.1.1 deprecated the `normalizeWhitespace` method, in favor of the `squish` method that comes with `illuminate/support`.
+
+
+## Upgrading to v3.1
+
+### Deprecated `wrap` method
+
+Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version. Use `enclose` instead.
+
+### Deprecated `unwrap` method
+
+Version 3.1.1 deprecated the `unwrap` method because a method with the same name was added in `illuminate/support` v10.43 and overrides this packages' version.Use `unclose` instead.
+
+
+## Upgrading to v3.0
+
+### PHP version bumped to 8.0
+
+Version 3.x requires PHP 8.0 or higher.
+
+
+## Upgrading to v2.x
+
+Version 2.x requires PHP 7.4 or higher.
 
 After updating the package, change your calls using the table below. 
 Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str`.
+
+### Removed methods
+
+Version 2 relies more on `illuminate/support` and dropped a few helper methods and the `Vendeka\Text\Fluid` class.
 
 | v1 | v2+ |
 |----|----|
@@ -306,37 +367,6 @@ Replace all other references to `Vendeka\Text\Text` with `Illuminate\Support\Str
 | `Vendeka\Text\Text::toLowerCase()` | `Illuminate\Support\Str::lower()` |
 | `Vendeka\Text\Text::toTitleCase()` | `Illuminate\Support\Str::title()` |
 | `Vendeka\Text\Text::toUpperCase()` | `Illuminate\Support\Str::upper()` |
-
-## Upgrading from v3.0
-
-### Deprecated `wrap` method
-
-Version 3.0.2 deprecated the `wrap` method because a method with the same name was added in `illuminate/support` v9.31 and overrides this packages' version.
-
-| v3.0 | v3.1+ |
-|----|----|
-|`Illuminate\Support\Str::wrap()`|`Illuminate\Support\Str::enclose()`|
-
-
-### Deprecated `unwrap` method
-
-Version 3.1.1 deprecated the `unwrap` method because a method with the same name was added in `illuminate/support` v10.43 and overrides this packages' version.
-
-| v3.0 | v3.1.1+ |
-|----|----|
-|`Illuminate\Support\Str::unwrap()`|`Illuminate\Support\Str::unclose()`|
-
-
-## Upgrading from v3.2
-
-### Deprecated `normalizeWhitespace` method
-
-Version 3.1.1 deprecated the `normalizeWhitespace` method, in favor of `squish` method that comes with `illuminate/support`.
-
-| v3.2 | v3.3.1+ |
-|----|----|
-|`Illuminate\Support\Str::normalizeWhitespace()`|`Illuminate\Support\Str::squish()`|
-
 
 # Testing
 
