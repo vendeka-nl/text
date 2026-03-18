@@ -198,7 +198,7 @@ Str::unclose('/present/', '/') //=> 'present'
 ### ~~unprefix~~
 
 *Since v1.0.0* \
-*Deprecated since v4.1.0:* Use `\Illimunite\Support\Str::chopStart` instead. Please note that `chopStart` returns after the first matched needle (lead).
+*Deprecated since v4.1.0:* Use `\Illuminate\Support\Str::chopStart` instead. Please note that `chopStart` returns after the first matched needle (lead).
 
 Remove a prefix if it is present.
 
@@ -210,8 +210,8 @@ Str::unprefix('#yolo', '#') //=> 'yolo'
 ### ~~unsuffix~~
 
 *Since v1.0.0* \
-*Deprecated since v4.1.0:* Use `\Illimunite\Support\Str::chopStart` instead. Please note that `chopStart` returns after the first matched needle (lead).
-.01
+*Deprecated since v4.1.0:* Use `\Illuminate\Support\Str::chopEnd` instead. Please note that `chopEnd` returns after the first matched needle (cap).
+
 Remove a suffix if it is present.
 
 ```php
@@ -298,7 +298,7 @@ Version 4.1.0 deprecates the `unprefix` method, in favor of the `chopStart` meth
 
 ### Deprecated `unsuffix` method
 
-Version 4.1.0 deprecates the `unsuffix` method, in favor of the `chopEnd` method that comes with `illuminate/support`. Please note that `chopStart` returns after the first matched needle (lead).
+Version 4.1.0 deprecates the `unsuffix` method, in favor of the `chopEnd` method that comes with `illuminate/support`. Please note that `chopEnd` returns after the first matched needle (lead).
 
 
 ## Upgrading to v4.0
@@ -310,7 +310,7 @@ Version 4.0.0 removed the `wrap` method. Use `enclose` instead.
 
 ### Dropped `unwrap` method
 
-Version 4.0.0 removed the `wrap` method. Use `unclose` instead.
+Version 4.0.0 removed the `unwrap` method. Use `unclose` instead.
 
 
 ### Dropped `normalizeWhitespace` method
