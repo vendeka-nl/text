@@ -26,7 +26,8 @@ jobs:
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
-          php_version: ${{ matrix.php-versions }}
+          php_version: ${{ matrix.php-versions }}          
+          php_extensions: mbstring
           version: 9
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
